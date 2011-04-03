@@ -14,8 +14,6 @@ $hoe = Hoe.spec 'ruby-thumbor' do
   self.developer 'Bernardo Heynemann', 'heynemann@gmail.com'
   self.post_install_message = 'PostInstall.txt'
   self.rubyforge_name       = 'ruby-thumbor'
-   self.extra_deps         = [['ruby-aes','>= 1.1']]
-
 end
 
 require 'newgem/tasks'

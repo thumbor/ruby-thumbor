@@ -6,7 +6,7 @@ require 'base64'
 require 'digest/md5'
 
 module Thumbor
-    VERSION = '0.0.1'
+    VERSION = '0.0.2'
 
     class CryptoURL
         attr_accessor :key
