@@ -356,5 +356,4 @@ describe Thumbor::CryptoURL, "#generate" do
 
     end
 
-
 end
