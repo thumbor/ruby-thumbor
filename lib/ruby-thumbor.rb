@@ -19,6 +19,40 @@ module Thumbor
             s + ("{" * (16 - s.length % 16))
         end
 
+        def calculate_width_and_height(url_parts, options)
+            width = options[:width]
+            height = options[:height]
+
+            if width and options[:flip]
+                width = width * -1
+            end
+            if height and options[:flop]
+                height = height * -1
+            end
+
+            if width or height
+                width = 0 if not width
+                height = 0 if not height
+            end
+
+            has_width = width
+            has_height = height
+            if options[:flip] and not has_width and not has_height
+                width = "-0"
+                height = '0' if not has_height and not options[:flop]
+            end
+            if options[:flop] and not has_width and not has_height
+                height = "-0"
+                width = '0' if not has_width and not options[:flip]
+            end
+
+            if width or height
+                width = width.to_s
+                height = height.to_s
+                url_parts.push(width << 'x' << height)
+            end
+        end
+
         def url_for(options)
             if not options[:image]
                 raise 'image is a required argument.'
@@ -26,19 +60,34 @@ module Thumbor
 
             url_parts = Array.new
 
-            if options[:width] and options[:height]
-                url_parts.push(options[:width].to_s << 'x' << options[:height].to_s)
-            else
-                if options[:width]
-                    url_parts.push(options[:width].to_s << 'x0')
-                end
-                if options[:height]
-                    url_parts.push('0x' << options[:height].to_s)
+            if options[:meta]
+                url_parts.push('meta')
+            end
+
+            crop = options[:crop]
+            if crop:
+                crop_left = crop[0]
+                crop_top = crop[1]
+                crop_bottom = crop[2]
+                crop_right = crop[3]
+
+                if crop_left > 0 or crop_top > 0 or crop_bottom > 0 or crop_right > 0
+                    url_parts.push(crop_left.to_s << 'x' << crop_top.to_s << ':' << crop_right.to_s << 'x' << crop_bottom.to_s)
                 end
             end
 
+            calculate_width_and_height(url_parts, options)
+
             if options[:smart]
                 url_parts.push('smart')
+            end
+
+            if options[:halign] and options[:halign] != 'center'
+                url_parts.push(options[:halign])
+            end
+
+            if options[:valign] and options[:valign] != 'middle'
+                url_parts.push(options[:valign])
             end
 
             image_hash = Digest::MD5.hexdigest(options[:image])
