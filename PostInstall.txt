@@ -1,0 +1,3 @@
+
+For more information on ruby-thumbor, see http://ruby-thumbor.rubyforge.org
+
