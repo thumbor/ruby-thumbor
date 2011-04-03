@@ -173,6 +173,14 @@ describe Thumbor::CryptoURL, "#url_for" do
         url.should == image_md5
     end
 
+    it "should have smart after halign and valign" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.url_for :image => image_url, :halign => 'left', :valign => 'top', :smart => true
+
+        url.should == 'left/top/smart/' << image_md5
+    end
+
 end
 
 describe Thumbor::CryptoURL, "#generate" do
@@ -277,6 +285,27 @@ describe Thumbor::CryptoURL, "#generate" do
         decrypted["height"].should == 200
         decrypted["flip_horizontally"] == true
         decrypted["flip_vertically"] == true
+
+    end
+
+    it "should allow thumbor to decrypt it properly with halign" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
+                              :halign => 'left'
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+        decrypted["flip_horizontally"] == true
+        decrypted["flip_vertically"] == true
+        decrypted["halign"] == "left"
 
     end
 

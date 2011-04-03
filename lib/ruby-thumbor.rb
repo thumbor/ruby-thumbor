@@ -78,16 +78,16 @@ module Thumbor
 
             calculate_width_and_height(url_parts, options)
 
-            if options[:smart]
-                url_parts.push('smart')
-            end
-
             if options[:halign] and options[:halign] != 'center'
                 url_parts.push(options[:halign])
             end
 
             if options[:valign] and options[:valign] != 'middle'
                 url_parts.push(options[:valign])
+            end
+
+            if options[:smart]
+                url_parts.push('smart')
             end
 
             image_hash = Digest::MD5.hexdigest(options[:image])
