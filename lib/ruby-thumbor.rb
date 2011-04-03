@@ -19,13 +19,44 @@ module Thumbor
             s + ("{" * (16 - s.length % 16))
         end
 
-        def generate(options)
+        def url_for(options)
+            if not options[:image]
+                raise 'image is a required argument.'
+            end
+
+            url_parts = Array.new
+
+            if options[:width] and options[:height]
+                url_parts.push(options[:width].to_s << 'x' << options[:height].to_s)
+            else
+                if options[:width]
+                    url_parts.push(options[:width].to_s << 'x0')
+                end
+                if options[:height]
+                    url_parts.push('0x' << options[:height].to_s)
+                end
+            end
+
+            if options[:smart]
+                url_parts.push('smart')
+            end
+
             image_hash = Digest::MD5.hexdigest(options[:image])
-            url = pad(options[:width].to_s << 'x' << options[:height].to_s << '/' << image_hash)
+            url_parts.push(image_hash)
+
+            return url_parts.join('/')
+        end
+
+        def url_safe_base64(str)
+            Base64.encode64(str).gsub('+', '-').gsub('/', '_').gsub!(/[\n]/, '')
+        end
+
+        def generate(options)
+            url = pad(url_for(options))
             cipher = OpenSSL::Cipher::Cipher.new('aes-128-ecb').encrypt
             cipher.key = @key
             encrypted = cipher.update(url)
-            based = Base64.encode64(encrypted).gsub('+', '-').gsub('/', '_').gsub!(/[\n]/, '')
+            based = url_safe_base64(encrypted)
 
             '/' << based << '/' << options[:image]
         end
