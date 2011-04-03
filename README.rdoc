@@ -28,7 +28,8 @@ No dependencies required for regular usage.
 
 Available arguments to the generate method:
 
-    :meta => bool - flag that indicates that thumbor should return only meta-data on the operations it would otherwise perform;
+    :meta => bool - flag that indicates that thumbor should return only meta-data on the operations it would
+                    otherwise perform;
 
     :crop => [<int>, <int>, <int>, <int>] - Coordinates for manual cropping. The first item is the two arguments are
                                             the coordinates for the left, top point and the last two are the coordinates
@@ -42,11 +43,13 @@ Available arguments to the generate method:
 
     :flop => <bool> - flag that indicates that thumbor should flip vertically (on the horizontal axis) the image;
 
-    :halign => :left, :center or :right - horizontal alignment that thumbor should use for cropping (more info in thumbor's docs);
+    :halign => :left, :center or :right - horizontal alignment that thumbor should use for cropping;
 
-    :valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping (more info in thumbor's docs);
+    :valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping;
 
-    :smart => <bool> - flag that indicates that thumbor should use smart cropping (more info on thumbor's docs);
+    :smart => <bool> - flag that indicates that thumbor should use smart cropping;
+
+If you need more info on what each option does, check thumbor's documentation at https://github.com/globocom/thumbor/wiki.
 
 == INSTALL:
 
