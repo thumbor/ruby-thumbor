@@ -1,12 +1,16 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
+require 'json'
 
 image_url = 'my.domain.com/some/image/url.jpg'
 image_md5 = 'f33af67e41168e80fcc5b00f8bd8061a'
 key = 'my-security-key'
 
 def decrypt_in_thumbor(str)
-    result = system "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-key\"); print cr.decrypt(\"whatever\")"
-    result.strip
+    command = "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-keymy\"); print cr.decrypt(\"" << str << "\")'"
+    result = Array.new
+    IO.popen(command) { |f| result.push(f.gets) } 
+    result = result.join('').strip
+    JSON.parse(result.gsub('"', "@@@").gsub("'", '"').gsub("@@@", '\\"').gsub('True', 'true').gsub('False', 'false'))
 end
 
 describe Thumbor::CryptoURL, "#new" do
@@ -186,7 +190,93 @@ describe Thumbor::CryptoURL, "#generate" do
 
         url = crypto.generate :width => 300, :height => 200, :image => image_url
 
-        '/qkLDiIbvtiks0Up9n5PACtmpOfX6dPXw4vP4kJU-jTfyF6y1GJBJyp7CHYh1H3R2/' << image_url
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["horizontal_flip"].should == false
+        decrypted["vertical_flip"].should == false
+        decrypted["smart"].should == false
+        decrypted["meta"].should == false
+        decrypted["crop"]["left"].should == 0
+        decrypted["crop"]["top"].should == 0
+        decrypted["crop"]["right"].should == 0
+        decrypted["crop"]["bottom"].should == 0
+        decrypted["valign"].should == 'middle'
+        decrypted["halign"].should == 'center'
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+
+    end
+
+    it "should allow thumbor to decrypt it properly with meta" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+
+    end
+
+    it "should allow thumbor to decrypt it properly with smart" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+
+    end
+
+    it "should allow thumbor to decrypt it properly with flip" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+        decrypted["flip_horizontally"] == true
+
+    end
+
+    it "should allow thumbor to decrypt it properly with flop" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+        decrypted["flip_horizontally"] == true
+        decrypted["flip_vertically"] == true
 
     end
 
