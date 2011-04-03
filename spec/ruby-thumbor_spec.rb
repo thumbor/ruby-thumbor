@@ -4,6 +4,11 @@ image_url = 'my.domain.com/some/image/url.jpg'
 image_md5 = 'f33af67e41168e80fcc5b00f8bd8061a'
 key = 'my-security-key'
 
+def decrypt_in_thumbor(str)
+    result = system "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-key\"); print cr.decrypt(\"whatever\")"
+    result.strip
+end
+
 describe Thumbor::CryptoURL, "#new" do
 
     it "should create a new instance passing key and keep it" do
@@ -174,6 +179,15 @@ describe Thumbor::CryptoURL, "#generate" do
         url = crypto.generate :width => 300, :height => 200, :image => image_url
 
         url.should == '/qkLDiIbvtiks0Up9n5PACtmpOfX6dPXw4vP4kJU-jTfyF6y1GJBJyp7CHYh1H3R2/' << image_url
+    end
+
+    it "should allow thumbor to decrypt it properly" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :image => image_url
+
+        '/qkLDiIbvtiks0Up9n5PACtmpOfX6dPXw4vP4kJU-jTfyF6y1GJBJyp7CHYh1H3R2/' << image_url
+
     end
 
 end
