@@ -68,8 +68,8 @@ module Thumbor
             if crop:
                 crop_left = crop[0]
                 crop_top = crop[1]
-                crop_bottom = crop[2]
-                crop_right = crop[3]
+                crop_right = crop[2]
+                crop_bottom = crop[3]
 
                 if crop_left > 0 or crop_top > 0 or crop_bottom > 0 or crop_right > 0
                     url_parts.push(crop_left.to_s << 'x' << crop_top.to_s << ':' << crop_right.to_s << 'x' << crop_bottom.to_s)

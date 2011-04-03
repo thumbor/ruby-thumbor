@@ -160,9 +160,9 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should return proper crop url" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :crop => [10, 10, 30, 30]
+        url = crypto.url_for :image => image_url, :crop => [10, 20, 30, 40]
 
-        url.should == '10x10:30x30/' << image_md5
+        url.should == '10x20:30x40/' << image_md5
     end
 
     it "should ignore crop if all zeros" do
@@ -308,5 +308,53 @@ describe Thumbor::CryptoURL, "#generate" do
         decrypted["halign"] == "left"
 
     end
+
+    it "should allow thumbor to decrypt it properly with valign" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
+                              :halign => 'left', :valign => 'top'
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["meta"].should == true
+        decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+        decrypted["flip_horizontally"] == true
+        decrypted["flip_vertically"] == true
+        decrypted["halign"] == "left"
+        decrypted["valign"] == "top"
+
+    end
+
+    it "should allow thumbor to decrypt it properly with cropping" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :image => image_url, :crop => [10, 20, 30, 40]
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["horizontal_flip"].should == false
+        decrypted["vertical_flip"].should == false
+        decrypted["smart"].should == false
+        decrypted["meta"].should == false
+        decrypted["crop"]["left"].should == 10
+        decrypted["crop"]["top"].should == 20
+        decrypted["crop"]["right"].should == 30
+        decrypted["crop"]["bottom"].should == 40
+        decrypted["valign"].should == 'middle'
+        decrypted["halign"].should == 'center'
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+
+    end
+
 
 end
