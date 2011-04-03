@@ -5,13 +5,13 @@ image_url = 'my.domain.com/some/image/url.jpg'
 image_md5 = 'f33af67e41168e80fcc5b00f8bd8061a'
 key = 'my-security-key'
 
-def decrypt_in_thumbor(str)
-    command = "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-keymy\"); print cr.decrypt(\"" << str << "\")'"
-    result = Array.new
-    IO.popen(command) { |f| result.push(f.gets) } 
-    result = result.join('').strip
-    JSON.parse(result.gsub('"', "@@@").gsub("'", '"').gsub("@@@", '\\"').gsub('True', 'true').gsub('False', 'false'))
-end
+    def decrypt_in_thumbor(str)
+        command = "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-keymy\"); print cr.decrypt(\"" << str << "\")'"
+        result = Array.new
+        IO.popen(command) { |f| result.push(f.gets) } 
+        result = result.join('').strip
+        JSON.parse(result.gsub('"', "@@@").gsub("'", '"').gsub("@@@", '\\"').gsub('True', 'true').gsub('False', 'false'))
+    end
 
 describe Thumbor::CryptoURL, "#new" do
 
@@ -101,7 +101,7 @@ describe Thumbor::CryptoURL, "#url_for" do
         url.should == '-300x0/' << image_md5
     end
 
-    it "should return proper flip url if width" do
+    it "should return proper flop url if height" do
         crypto = Thumbor::CryptoURL.new key
 
         url = crypto.url_for :image => image_url, :height => 300, :flop => true
