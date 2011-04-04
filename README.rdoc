@@ -19,7 +19,7 @@ No dependencies required for regular usage.
 
 == USAGE:
 
-    crypto = CryptoURL.new key => 'my-security-key'
+    crypto = CryptoURL.new :key => 'my-security-key'
 
     url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
 
