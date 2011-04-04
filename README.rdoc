@@ -19,9 +19,9 @@ No dependencies required for regular usage.
 
 == USAGE:
 
-    crypto => new CryptoURL key => 'my-security-key'
+    crypto = new CryptoURL key => 'my-security-key'
 
-    url = crypto.generate width => 200, height => 300, image => 'my.server.com/path/to/image.jpg'
+    url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
 
     # url will contain something like:
     # /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
