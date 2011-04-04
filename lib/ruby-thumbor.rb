@@ -12,7 +12,7 @@ module Thumbor
         attr_accessor :key
 
         def initialize(key)
-            @key = (key * 16)[0..16]
+            @key = (key * 16)[0..15]
         end
 
         def pad(s)
