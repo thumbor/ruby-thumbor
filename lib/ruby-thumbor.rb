@@ -78,11 +78,11 @@ module Thumbor
 
             calculate_width_and_height(url_parts, options)
 
-            if options[:halign] and options[:halign] != 'center'
+            if options[:halign] and options[:halign] != :center
                 url_parts.push(options[:halign])
             end
 
-            if options[:valign] and options[:valign] != 'middle'
+            if options[:valign] and options[:valign] != :middle
                 url_parts.push(options[:valign])
             end
 

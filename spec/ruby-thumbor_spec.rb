@@ -112,7 +112,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should return horizontal align" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :halign => 'left'
+        url = crypto.url_for :image => image_url, :halign => :left
 
         url.should == 'left/' << image_md5
     end
@@ -120,7 +120,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should not return horizontal align if it is center" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :halign => 'center'
+        url = crypto.url_for :image => image_url, :halign => :center
 
         url.should == image_md5
     end
@@ -128,7 +128,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should return vertical align" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :valign => 'top'
+        url = crypto.url_for :image => image_url, :valign => :top
 
         url.should == 'top/' << image_md5
     end
@@ -136,7 +136,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should not return vertical align if it is middle" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :valign => 'middle'
+        url = crypto.url_for :image => image_url, :valign => :middle
 
         url.should == image_md5
     end
@@ -144,7 +144,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should return halign and valign properly" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :halign => 'left', :valign => 'top'
+        url = crypto.url_for :image => image_url, :halign => :left, :valign => :top
 
         url.should == 'left/top/' << image_md5
     end
@@ -176,7 +176,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should have smart after halign and valign" do
         crypto = Thumbor::CryptoURL.new key
 
-        url = crypto.url_for :image => image_url, :halign => 'left', :valign => 'top', :smart => true
+        url = crypto.url_for :image => image_url, :halign => :left, :valign => :top, :smart => true
 
         url.should == 'left/top/smart/' << image_md5
     end
@@ -292,7 +292,7 @@ describe Thumbor::CryptoURL, "#generate" do
         crypto = Thumbor::CryptoURL.new key
 
         url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
-                              :halign => 'left'
+                              :halign => :left
 
         encrypted = url.split('/')[1]
 
@@ -313,7 +313,7 @@ describe Thumbor::CryptoURL, "#generate" do
         crypto = Thumbor::CryptoURL.new key
 
         url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
-                              :halign => 'left', :valign => 'top'
+                              :halign => :left, :valign => :top
 
         encrypted = url.split('/')[1]
 
