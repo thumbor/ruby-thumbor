@@ -1,3 +1,8 @@
+=== 0.2.0 2011-04-19
+
+* 1 major enhancement:
+  * Fit-in support in the url
+
 === 0.0.1 2011-04-02
 
 * 1 major enhancement:
