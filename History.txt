@@ -1,4 +1,4 @@
-=== 0.2.0 2011-04-19
+=== 0.5.0 2011-04-19
 
 * 1 major enhancement:
   * Fit-in support in the url
