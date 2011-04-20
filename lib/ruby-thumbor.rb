@@ -76,6 +76,10 @@ module Thumbor
                 end
             end
 
+            if options[:fit_in]:
+                url_parts.push('fit-in')
+            end
+
             calculate_width_and_height(url_parts, options)
 
             if options[:halign] and options[:halign] != :center

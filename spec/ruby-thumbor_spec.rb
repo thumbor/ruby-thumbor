@@ -69,6 +69,14 @@ describe Thumbor::CryptoURL, "#url_for" do
         url.should == '200x300/smart/' << image_md5
     end
 
+    it "should return proper fit-in url" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.url_for :image => image_url, :width => 200, :height => 300, :fit_in => true
+
+        url.should == 'fit-in/200x300/' << image_md5
+    end
+
     it "should return proper flip url if no width and height" do
         crypto = Thumbor::CryptoURL.new key
 
@@ -206,6 +214,7 @@ describe Thumbor::CryptoURL, "#generate" do
         decrypted["vertical_flip"].should == false
         decrypted["smart"].should == false
         decrypted["meta"].should == false
+        decrypted["fit_in"].should == false
         decrypted["crop"]["left"].should == 0
         decrypted["crop"]["top"].should == 0
         decrypted["crop"]["right"].should == 0
@@ -245,6 +254,23 @@ describe Thumbor::CryptoURL, "#generate" do
 
         decrypted["meta"].should == true
         decrypted["smart"].should == true
+        decrypted["image_hash"].should == image_md5
+        decrypted["width"].should == 300
+        decrypted["height"].should == 200
+
+    end
+
+    it "should allow thumbor to decrypt it properly with fit-in" do
+
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :width => 300, :height => 200, :fit_in => true, :image => image_url
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["fit_in"].should == true
         decrypted["image_hash"].should == image_md5
         decrypted["width"].should == 300
         decrypted["height"].should == 200
