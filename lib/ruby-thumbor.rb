@@ -65,7 +65,7 @@ module Thumbor
             end
 
             crop = options[:crop]
-            if crop:
+            if crop
                 crop_left = crop[0]
                 crop_top = crop[1]
                 crop_right = crop[2]
@@ -76,7 +76,7 @@ module Thumbor
                 end
             end
 
-            if options[:fit_in]:
+            if options[:fit_in]
                 url_parts.push('fit-in')
             end
 
@@ -92,6 +92,15 @@ module Thumbor
 
             if options[:smart]
                 url_parts.push('smart')
+            end
+
+            if options[:filters]
+              filter_parts = []
+              options[:filters].each do |filter|
+                filter_parts.push(filter)
+              end
+
+              url_parts.push("filters:#{ filter_parts.join(':') }")
             end
 
             image_hash = Digest::MD5.hexdigest(options[:image])
@@ -111,7 +120,7 @@ module Thumbor
             encrypted = cipher.update(url)
             based = url_safe_base64(encrypted)
 
-            '/' << based << '/' << options[:image]
+            return '/' << based << '/' << options[:image]
         end
     end
 

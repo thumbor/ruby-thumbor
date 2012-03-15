@@ -382,4 +382,17 @@ describe Thumbor::CryptoURL, "#generate" do
 
     end
 
+    it "should allow thumbor to decrypt it properly with filters" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.generate :filters => ["quality(20)", "brightness(10)"], :image => image_url
+
+        encrypted = url.split('/')[1]
+
+        decrypted = decrypt_in_thumbor(encrypted)
+
+        decrypted["filters"].should == "quality(20):brightness(10)"
+    end
+
+
 end
