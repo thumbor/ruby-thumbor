@@ -1,3 +1,8 @@
+=== Unreleased
+
+* Bugfixes:
+  * Ignore filters option to #generate if the array is empty
+
 === 0.6.0 2012-03-14
 
 * 1 major enhancement:
