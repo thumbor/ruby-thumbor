@@ -189,6 +189,13 @@ describe Thumbor::CryptoURL, "#url_for" do
         url.should == 'left/top/smart/' << image_md5
     end
 
+    it "should ignore filters if empty" do
+        crypto = Thumbor::CryptoURL.new key
+
+        url = crypto.url_for :image => image_url, :filters => []
+
+        url.should == image_md5
+    end
 end
 
 describe Thumbor::CryptoURL, "#generate" do

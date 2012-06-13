@@ -94,7 +94,7 @@ module Thumbor
                 url_parts.push('smart')
             end
 
-            if options[:filters]
+            if options[:filters] && !options[:filters].empty?
               filter_parts = []
               options[:filters].each do |filter|
                 filter_parts.push(filter)
