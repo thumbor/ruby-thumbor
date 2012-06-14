@@ -1,4 +1,4 @@
-=== Unreleased
+=== 0.7.0 2012-06-14
 
 * Bugfixes:
   * Ignore filters option to #generate if the array is empty
