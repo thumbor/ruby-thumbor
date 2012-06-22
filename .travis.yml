@@ -17,8 +17,8 @@ install:
 
 script:
     # creating and activating virtualenv
-    virtualenv -p python2.7 --distribute rubythumbor
-    source ./rubythumbor/bin/activate
+    - virtualenv -p python2.7 --distribute rubythumbor
+    - source ./rubythumbor/bin/activate
 
     # install python requirements
     - pip install -r test_requirements.txt --use-mirrors
