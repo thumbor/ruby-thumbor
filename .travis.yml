@@ -12,6 +12,7 @@ install:
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
 
     # install ruby gems
+    - gem install bundler
     - bundle install
 
 script:
