@@ -15,8 +15,9 @@ install:
     - bundle install
 
 script:
-    # install python 2.7
-    - ./install-python.sh
+    # creating and activating virtualenv
+    virtualenv -p install/bin/python2.7 --distribute rubythumbor
+    source ./rubythumbor/bin/activate
 
     # install python requirements
     - pip install -r test_requirements.txt --use-mirrors
