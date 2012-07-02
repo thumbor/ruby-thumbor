@@ -6,7 +6,7 @@ image_md5 = 'f33af67e41168e80fcc5b00f8bd8061a'
 key = 'my-security-key'
 
 def decrypt_in_thumbor(str)
-    command = "python -c 'from thumbor.crypto import Crypto; cr = Crypto(\"my-security-keymy\"); print cr.decrypt(\"" << str << "\")'"
+    command = "python -c 'from thumbor.crypto import Cryptor; cr = Cryptor(\"my-security-keymy\"); print cr.decrypt(\"" << str << "\")'"
     result = Array.new
     IO.popen(command) { |f| result.push(f.gets) } 
     result = result.join('').strip
@@ -17,7 +17,7 @@ describe Thumbor::CryptoURL, "#new" do
 
     it "should create a new instance passing key and keep it" do
         crypto = Thumbor::CryptoURL.new key
-        crypto.key.should == 'my-security-keym'
+        crypto.computed_key.should == 'my-security-keym'
     end
 
 end
@@ -200,18 +200,68 @@ end
 
 describe Thumbor::CryptoURL, "#generate" do
 
-    it "should create a new instance passing key and keep it" do
-        crypto = Thumbor::CryptoURL.new key
+    before :each do
+        @crypto = Thumbor::CryptoURL.new key
+    end
 
-        url = crypto.generate :width => 300, :height => 200, :image => image_url
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :image => image_url
+
+        url.should == '/TQfyd3H36Z3srcNcLOYiM05YNO8=/300x200/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url
+
+        url.should == '/YBQEWd3g_WRMnVEG73zfzcr8Zj0=/meta/300x200/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true
+
+        url.should == '/jP89J0qOWHgPlm_lOA28GtOh5GU=/meta/300x200/smart/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :fit_in => true
+
+        url.should == '/zrrOh_TtTs4kiLLEQq1w4bcTYdc=/meta/fit-in/300x200/smart/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :fit_in => true, :flip => true
+
+        url.should == '/4t1XK1KH43cOb1QJ9tU00-W2_k8=/meta/fit-in/-300x200/smart/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :fit_in => true, :flip => true, :flop => true
+
+        url.should == '/HJnvjZU69PkPOhyZGu-Z3Uc_W_A=/meta/fit-in/-300x-200/smart/my.domain.com/some/image/url.jpg'
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :filters => ["quality(20)", "brightness(10)"], :image => image_url
+
+        url.should == '/q0DiFg-5-eFZIqyN3lRoCvg2K0s=/filters:quality(20):brightness(10)/my.domain.com/some/image/url.jpg'
+    end
+
+end
+
+describe Thumbor::CryptoURL, "#generate :old => true" do
+
+    before :each do
+        @crypto = Thumbor::CryptoURL.new key
+    end
+
+    it "should create a new instance passing key and keep it" do
+        url = @crypto.generate :width => 300, :height => 200, :image => image_url, :old => true
 
         url.should == '/qkLDiIbvtiks0Up9n5PACtmpOfX6dPXw4vP4kJU-jTfyF6y1GJBJyp7CHYh1H3R2/' << image_url
     end
 
     it "should allow thumbor to decrypt it properly" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :image => image_url
+        url = @crypto.generate :width => 300, :height => 200, :image => image_url, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -235,9 +285,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with meta" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -251,9 +299,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with smart" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -268,10 +314,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with fit-in" do
-
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :fit_in => true, :image => image_url
+        url = @crypto.generate :width => 300, :height => 200, :fit_in => true, :image => image_url, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -285,9 +328,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with flip" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -303,9 +344,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with flop" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -322,10 +361,8 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with halign" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
-                              :halign => :left
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
+                              :halign => :left, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -343,10 +380,8 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with valign" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
-                              :halign => :left, :valign => :top
+        url = @crypto.generate :width => 300, :height => 200, :meta => true, :image => image_url, :smart => true, :flip => true, :flop => true,
+                              :halign => :left, :valign => :top, :old => true
 
         encrypted = url.split('/')[1]
 
@@ -365,9 +400,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with cropping" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :width => 300, :height => 200, :image => image_url, :crop => [10, 20, 30, 40]
+        url = @crypto.generate :width => 300, :height => 200, :image => image_url, :crop => [10, 20, 30, 40], :old => true
 
         encrypted = url.split('/')[1]
 
@@ -390,9 +423,7 @@ describe Thumbor::CryptoURL, "#generate" do
     end
 
     it "should allow thumbor to decrypt it properly with filters" do
-        crypto = Thumbor::CryptoURL.new key
-
-        url = crypto.generate :filters => ["quality(20)", "brightness(10)"], :image => image_url
+        url = @crypto.generate :filters => ["quality(20)", "brightness(10)"], :image => image_url, :old => true
 
         encrypted = url.split('/')[1]
 

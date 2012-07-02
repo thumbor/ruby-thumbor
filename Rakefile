@@ -17,5 +17,5 @@ $hoe = Hoe.spec 'ruby-thumbor' do
 end
 
 require 'newgem/tasks'
-Dir['tasks/**/*.rake'].each { |t| load t }
+Dir['tasks/**/*.rake'].each { |t| import t }
 

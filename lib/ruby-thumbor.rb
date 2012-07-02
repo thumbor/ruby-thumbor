@@ -4,15 +4,17 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'openssl'
 require 'base64'
 require 'digest/md5'
+require 'cgi'
 
 module Thumbor
     VERSION = '0.7.0'
 
     class CryptoURL
-        attr_accessor :key
+        attr_accessor :key, :computed_key
 
         def initialize(key)
-            @key = (key * 16)[0..15]
+            @key = key
+            @computed_key = (key * 16)[0..15]
         end
 
         def pad(s)
@@ -53,7 +55,7 @@ module Thumbor
             end
         end
 
-        def url_for(options)
+        def url_for(options, include_hash = true)
             if not options[:image]
                 raise 'image is a required argument.'
             end
@@ -103,8 +105,10 @@ module Thumbor
               url_parts.push("filters:#{ filter_parts.join(':') }")
             end
 
-            image_hash = Digest::MD5.hexdigest(options[:image])
-            url_parts.push(image_hash)
+            if include_hash
+                image_hash = Digest::MD5.hexdigest(options[:image])
+                url_parts.push(image_hash)
+            end
 
             return url_parts.join('/')
         end
@@ -113,14 +117,29 @@ module Thumbor
             Base64.encode64(str).gsub('+', '-').gsub('/', '_').gsub!(/[\n]/, '')
         end
 
-        def generate(options)
+        def generate_old(options)
             url = pad(url_for(options))
             cipher = OpenSSL::Cipher::Cipher.new('aes-128-ecb').encrypt
-            cipher.key = @key
+            cipher.key = @computed_key
             encrypted = cipher.update(url)
             based = url_safe_base64(encrypted)
 
-            return '/' << based << '/' << options[:image]
+            "/#{based}/#{options[:image]}"
+        end
+
+        def generate_new(options)
+            url_options = url_for(options, false)
+            url = "#{url_options}/#{options[:image]}"
+
+            signature = OpenSSL::HMAC.digest('sha1', @key, url)
+            signature = url_safe_base64(signature)
+
+            "/#{signature}/#{url}"
+        end
+
+        def generate(options)
+            return generate_old(options) if options[:old]
+            generate_new(options)
         end
     end
 
