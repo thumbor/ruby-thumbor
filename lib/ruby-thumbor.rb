@@ -7,7 +7,7 @@ require 'digest/md5'
 require 'cgi'
 
 module Thumbor
-    VERSION = '0.7.0'
+    VERSION = '1.0.0'
 
     class CryptoURL
         attr_accessor :key, :computed_key
