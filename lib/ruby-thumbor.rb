@@ -72,6 +72,7 @@ module Thumbor
             generate_new(options)
         end
 
+        private
         def options_for_crop(options)
           options = options[:crop]
 
