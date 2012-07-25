@@ -34,7 +34,7 @@ describe Thumbor::CryptoURL, "#url_for" do
     it "should raise if no image passed" do
         crypto = Thumbor::CryptoURL.new key
 
-        expect { crypto.url_for Hash.new }.to raise_error(RuntimeError)
+        expect { crypto.url_for Hash.new }.to raise_error(ArgumentError)
     end
 
     it "should return proper url for width-only" do
