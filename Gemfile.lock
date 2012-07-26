@@ -14,6 +14,8 @@ GEM
       guard (>= 1.1)
     hoe (3.0.6)
       rake (~> 0.8)
+    hoe-yard (0.1.2)
+      yard (>= 0.2.3.1)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     listen (0.4.7)
@@ -59,6 +61,7 @@ GEM
     simplecov-html (0.5.3)
     syntax (1.0.0)
     thor (0.15.4)
+    yard (0.8.2.1)
 
 PLATFORMS
   ruby
@@ -67,6 +70,7 @@ DEPENDENCIES
   guard
   guard-rspec
   hoe
+  hoe-yard
   newgem
   rb-readline
   rspec
