@@ -1,10 +1,14 @@
 require 'rubygems'
 gem 'hoe', '>= 2.1.0'
+
 require 'hoe'
+
 require 'fileutils'
 require './lib/ruby-thumbor'
 
 Hoe.plugin :newgem
+Hoe.plugin :yard
+
 # Hoe.plugin :website
 # Hoe.plugin :cucumberfeatures
 
@@ -14,6 +18,7 @@ $hoe = Hoe.spec 'ruby-thumbor' do
   self.developer 'Bernardo Heynemann', 'heynemann@gmail.com'
   self.post_install_message = 'PostInstall.txt'
   self.rubyforge_name       = 'ruby-thumbor'
+  self.yard_markup          = :markdown
 end
 
 require 'newgem/tasks'
