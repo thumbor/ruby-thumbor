@@ -1,11 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper.rb'
 require 'json'
 
-image_url = 'my.domain.com/some/image/url.jpg'
-image_md5 = 'f33af67e41168e80fcc5b00f8bd8061a'
-key = 'my-security-key'
-
-
 describe Thumbor::CryptoURL do 
   let(:image_url) { 'my.domain.com/some/image/url.jpg' }
   let(:image_md5) { 'f33af67e41168e80fcc5b00f8bd8061a' }
