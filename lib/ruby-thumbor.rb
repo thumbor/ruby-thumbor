@@ -32,8 +32,9 @@ module Thumbor
             url_parts << options_for_crop(options)
             url_parts << options_for_width_and_height(options)
 
-            url_parts << options[:halign] if options[:halign] and options[:halign] != :center
-            url_parts << options[:valign] if options[:valign] and options[:valign] != :middle
+            url_parts << options[:halign] if [:left, :right].include? options[:halign]
+            url_parts << options[:valign] if [:top, :bottom].include? options[:valign]
+
             url_parts << 'smart' if options[:smart]
 
             url_parts << options_for_filters(options)
