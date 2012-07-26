@@ -22,6 +22,7 @@ module Thumbor
             @computed_key = (@key * 16)[0..15]
             @url_parts    = {}
             @image        = ''
+            @image_hash   = false
         end
 
         def image image_option
@@ -82,10 +83,17 @@ module Thumbor
           self
         end
 
+        def image_hash
+          @image_hash = true
+          self
+        end
+
         def url_for(options, include_hash = true)
             raise ArgumentError.new('image is a required argument.') if not options[:image]
 
             #reading options
+            image_hash if include_hash
+
             meta    if options[:meta]
             fit_in  if options[:fit_in]
             smart   if options[:smart]
@@ -96,25 +104,29 @@ module Thumbor
             filters options[:filters]
             image(options[:image])
 
-            to_s include_hash
+            plain
         end
 
-        def to_s image_hash = true
+        def plain
           raise 'image is required, try call method image before it' if @image.empty?
 
           #ordering url parts
           ordered_pieces =  [:meta, :fit_in, :crop, :size, :halign,
                             :valign, :smart, :filters]
 
-          ordered_pieces << :image_hash if image_hash
+          ordered_pieces << :image_hash if @image_hash
 
           ordered_pieces.map {|piece| @url_parts[piece] }.reject(&:nil?).join('/')
+        end
+
+        def to_s old = false
+          encrypt old
         end
 
         def encrypt old = false
           return encrypt_old if old
 
-          url         = "#{to_s(false)}/#{@image}"
+          url         = "#{plain}/#{@image}"
           signature   = OpenSSL::HMAC.digest('sha1', @key, url)
           signature   = url_safe_base64(signature)
 
@@ -122,7 +134,7 @@ module Thumbor
         end
 
         def encrypt_old
-          url         =  pad(to_s)
+          url         = pad(plain)
           cipher      = OpenSSL::Cipher::AES128.new(:ECB).encrypt
           cipher.key  = @computed_key
           encrypted   = cipher.update(url)
@@ -137,7 +149,7 @@ module Thumbor
         end
 
         def generate_new(options)
-            url_for options
+            url_for options, false
             encrypt
         end
 

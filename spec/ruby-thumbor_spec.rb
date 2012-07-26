@@ -141,30 +141,30 @@ describe Thumbor::CryptoURL do
       before { subject.size(:width => 300, :height => 200) }
 
       it "should create a new instance passing key and keep it" do
-        subject.encrypt.to_s.should == '/TQfyd3H36Z3srcNcLOYiM05YNO8=/300x200/my.domain.com/some/image/url.jpg'
+        "#{subject}".should == '/TQfyd3H36Z3srcNcLOYiM05YNO8=/300x200/my.domain.com/some/image/url.jpg'
       end
 
       it "should create a new instance passing key and keep it" do
-        subject.meta.encrypt.to_s.should == '/YBQEWd3g_WRMnVEG73zfzcr8Zj0=/meta/300x200/my.domain.com/some/image/url.jpg'
+        "#{subject.meta}".should == '/YBQEWd3g_WRMnVEG73zfzcr8Zj0=/meta/300x200/my.domain.com/some/image/url.jpg'
       end
 
       it "should create a new instance passing key and keep it" do
-        subject.meta.smart.encrypt.to_s.should == '/jP89J0qOWHgPlm_lOA28GtOh5GU=/meta/300x200/smart/my.domain.com/some/image/url.jpg'
+        "#{subject.meta.smart}".should == '/jP89J0qOWHgPlm_lOA28GtOh5GU=/meta/300x200/smart/my.domain.com/some/image/url.jpg'
       end
 
       it "should create a new instance passing key and keep it" do
-        subject.meta.smart.fit_in.encrypt.to_s.should == '/zrrOh_TtTs4kiLLEQq1w4bcTYdc=/meta/fit-in/300x200/smart/my.domain.com/some/image/url.jpg'
+        "#{subject.meta.smart.fit_in}".should == '/zrrOh_TtTs4kiLLEQq1w4bcTYdc=/meta/fit-in/300x200/smart/my.domain.com/some/image/url.jpg'
       end
 
       it "should create a new instance passing key and keep it" do
-        url = subject.size(:width => 300, :height => 200, :flip => true).meta.smart.fit_in.encrypt
-        url.to_s.should == '/4t1XK1KH43cOb1QJ9tU00-W2_k8=/meta/fit-in/-300x200/smart/my.domain.com/some/image/url.jpg'
+        url = "#{subject.size(:width => 300, :height => 200, :flip => true).meta.smart.fit_in}"
+        url.should == '/4t1XK1KH43cOb1QJ9tU00-W2_k8=/meta/fit-in/-300x200/smart/my.domain.com/some/image/url.jpg'
       end
     end
 
     it "should create a new instance passing key and keep it" do
-      url = subject.filters(["quality(20)", "brightness(10)"]).encrypt
-      url.to_s.should == '/q0DiFg-5-eFZIqyN3lRoCvg2K0s=/filters:quality(20):brightness(10)/my.domain.com/some/image/url.jpg'
+      url = "#{subject.filters(["quality(20)", "brightness(10)"])}"
+      url.should == '/q0DiFg-5-eFZIqyN3lRoCvg2K0s=/filters:quality(20):brightness(10)/my.domain.com/some/image/url.jpg'
     end
   end
 
