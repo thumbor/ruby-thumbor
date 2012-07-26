@@ -63,7 +63,7 @@ sudo gem install ruby-thumbor
 
 ## CONTRIBUTIONS:
 
-* Hugo Lopes (hugobr) - Fixes in the usage readme part of the docs.
+* Hugo Lopes ([hugobr](https://github.com/hugobr)) - Fixes in the usage readme part of the docs.
 
 ## LICENSE:
 
