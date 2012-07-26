@@ -2,26 +2,16 @@ require File.dirname(__FILE__) + '/spec_helper.rb'
 require 'json'
 
 describe Thumbor::CryptoURL do 
-  let(:image_url) { 'my.domain.com/some/image/url.jpg' }
-  let(:image_md5) { 'f33af67e41168e80fcc5b00f8bd8061a' }
-  let(:key)       { 'my-security-key' }
-
-  def decrypt_in_thumbor(str)
-    result = %x[python -c 'from thumbor.crypto import Cryptor; cr = Cryptor("my-security-keymy"); print cr.decrypt("#{str}")']
-
-    JSON.parse(result.gsub('"',     "@@@").
-                      gsub("'",     '"').
-                      gsub("@@@",   '\\"').
-                      gsub('True',  'true').
-                      gsub('False', 'false'))
-  end
-
+  let(:image_url)     { 'my.domain.com/some/image/url.jpg' }
+  let(:image_md5)     { 'f33af67e41168e80fcc5b00f8bd8061a' }
+  let(:key)           { 'my-security-key' }
+  let(:computed_key)  { 'my-security-keym' }
 
   subject { Thumbor::CryptoURL.new key }
 
   describe "#new" do
     it "should create a new instance passing key and keep it" do
-      subject.computed_key.should == 'my-security-keym'
+      subject.computed_key.should == computed_key
     end
   end
 
@@ -194,6 +184,17 @@ describe Thumbor::CryptoURL do
   end
 
   describe "#generate :old => true" do
+    #helpers
+    def decrypt_in_thumbor(str)
+      result = %x[python -c 'from thumbor.crypto import Cryptor; cr = Cryptor("my-security-keymy"); print cr.decrypt("#{str}")']
+
+      JSON.parse(result.gsub('"',     "@@@").
+                        gsub("'",     '"').
+                        gsub("@@@",   '\\"').
+                        gsub('True',  'true').
+                        gsub('False', 'false'))
+    end
+
     def generate_and_decrypt options
       url = subject.generate options
       decrypt_in_thumbor url.split('/')[1]
