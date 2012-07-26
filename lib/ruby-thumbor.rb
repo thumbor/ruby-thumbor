@@ -49,7 +49,7 @@ module Thumbor
 
         def generate_old(options)
             url         = pad(url_for(options))
-            cipher      = OpenSSL::Cipher::Cipher.new('aes-128-ecb').encrypt
+            cipher      = OpenSSL::Cipher::AES128.new(:ECB).encrypt
             cipher.key  = @computed_key
             encrypted   = cipher.update(url)
             based       = url_safe_base64(encrypted)
