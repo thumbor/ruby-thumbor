@@ -1,65 +1,71 @@
-= ruby-thumbor {<img src="https://secure.travis-ci.org/heynemann/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/heynemann/ruby-thumbor]
+# ruby-thumbor [<img src="https://secure.travis-ci.org/heynemann/ruby-thumbor.png?branch=master" alt="Build Status" />](http://travis-ci.org/heynemann/ruby-thumbor)
 
 * http://github.com/heynemann/ruby-thumbor
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 ruby-thumbor is the client to the thumbor imaging service (http://github.com/globocom/thumbor).
 
-== FEATURES:
+## FEATURES:
 
 * Generate thumbor encrypted URLs
 * Obtain metadata from image operations in thumbor
 
-== DEPENDENCIES
+## DEPENDENCIES
 
 No dependencies required for regular usage.
 
 * thumbor (http://github.com/globocom/thumbor) for running ruby-thumbor tests.
 
-== USAGE:
+## USAGE:
 
-    crypto = CryptoURL.new :key => 'my-security-key'
+``` ruby
+crypto = CryptoURL.new :key => 'my-security-key'
 
-    url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
+url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
 
-    # url will contain something like:
-    # /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
+# url will contain something like:
+# /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
+```
 
 Available arguments to the generate method:
 
-    :meta => bool - flag that indicates that thumbor should return only meta-data on the operations it would
-                    otherwise perform;
+``` ruby
+:meta => bool - flag that indicates that thumbor should return only meta-data on the operations it would
+                otherwise perform;
 
-    :crop => [<int>, <int>, <int>, <int>] - Coordinates for manual cropping. The first item is the two arguments are
-                                            the coordinates for the left, top point and the last two are the coordinates
-                                            for the right, bottom point (thus forming the square to crop);
+:crop => [<int>, <int>, <int>, <int>] - Coordinates for manual cropping. The first item is the two arguments are
+                                        the coordinates for the left, top point and the last two are the coordinates
+                                        for the right, bottom point (thus forming the square to crop);
 
-    :width => <int> - the width for the thumbnail;
+:width => <int> - the width for the thumbnail;
 
-    :height => <int> - the height for the thumbnail;
+:height => <int> - the height for the thumbnail;
 
-    :flip => <bool> - flag that indicates that thumbor should flip horizontally (on the vertical axis) the image;
+:flip => <bool> - flag that indicates that thumbor should flip horizontally (on the vertical axis) the image;
 
-    :flop => <bool> - flag that indicates that thumbor should flip vertically (on the horizontal axis) the image;
+:flop => <bool> - flag that indicates that thumbor should flip vertically (on the horizontal axis) the image;
 
-    :halign => :left, :center or :right - horizontal alignment that thumbor should use for cropping;
+:halign => :left, :center or :right - horizontal alignment that thumbor should use for cropping;
 
-    :valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping;
+:valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping;
 
-    :smart => <bool> - flag that indicates that thumbor should use smart cropping;
+:smart => <bool> - flag that indicates that thumbor should use smart cropping;
+```
 
 If you need more info on what each option does, check thumbor's documentation at https://github.com/globocom/thumbor/wiki.
 
-== INSTALL:
+## INSTALL:
 
-* sudo gem install ruby-thumbor
+```
+sudo gem install ruby-thumbor
+```
 
-== CONTRIBUTIONS:
+## CONTRIBUTIONS:
 
 * Hugo Lopes (hugobr) - Fixes in the usage readme part of the docs.
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 
