@@ -19,11 +19,11 @@ module Thumbor
         end
 
         def initialize(key = nil)
-            @key          = (key or @@key) 
-            @computed_key = (@key * 16)[0..15]
-            @url_parts    = {}
-            @image        = ''
-            @image_hash   = false
+          @key          = (key or @@key) 
+          @computed_key = (@key * 16)[0..15]
+          @url_parts    = {}
+          @image        = ''
+          @image_hash   = false
         end
 
         def << options
@@ -31,12 +31,12 @@ module Thumbor
           meta        if options[:meta]
           fit_in      if options[:fit_in]
           smart       if options[:smart]
-          crop(options[:crop])
-          size(options)
-          halign(options[:halign])
-          valign(options[:valign])
+          size    options
+          crop    options[:crop]
+          halign  options[:halign]
+          valign  options[:valign]
           filters options[:filters]
-          image(options[:image])
+          image   options[:image]
         end
 
         def url_for(options, include_hash = true)
