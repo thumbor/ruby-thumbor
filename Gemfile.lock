@@ -8,6 +8,7 @@ GEM
     diff-lcs (1.1.3)
     hoe (3.0.6)
       rake (~> 0.8)
+    json_pure (1.7.5)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     multi_json (1.3.6)
@@ -48,6 +49,7 @@ PLATFORMS
 
 DEPENDENCIES
   hoe
+  json_pure
   newgem
   rspec
   ruby-debug19
