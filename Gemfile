@@ -1,10 +1,16 @@
 source :rubygems
 
-gem "hoe"
-gem "newgem"
+group :development do
+    gem "hoe"
+    gem "newgem"
+    gem "debugger", :platforms => :mri_19
+end
 
 group :development, :test do
-    gem "debugger"
-    gem "simplecov"
+    gem "simplecov", :platforms => :mri_19
     gem "rspec"
+end
+
+group :test do
+    gem "json_pure", :platforms => :ruby_18, :require => "json/pure"
 end
