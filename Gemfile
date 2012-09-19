@@ -4,7 +4,7 @@ gem "hoe"
 gem "newgem"
 
 group :development, :test do
-    gem "ruby-debug19"
+    gem "debugger"
     gem "simplecov"
     gem "rspec"
 end

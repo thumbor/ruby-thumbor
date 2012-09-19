@@ -10,7 +10,7 @@ def decrypt_in_thumbor(str)
     result = Array.new
     IO.popen(command) { |f| result.push(f.gets) } 
     result = result.join('').strip
-    JSON.parse(result.gsub('"', "@@@").gsub("'", '"').gsub("@@@", '\\"').gsub('True', 'true').gsub('False', 'false'))
+    JSON.parse(result.gsub('"', "@@@").gsub("'", '"').gsub("@@@", '\\"').gsub('True', 'true').gsub('False', 'false').gsub('None', 'null'))
 end
 
 describe Thumbor::CryptoURL, "#new" do
