@@ -99,7 +99,19 @@ module Thumbor
             if options[:filters] && !options[:filters].empty?
               filter_parts = []
               options[:filters].each do |filter|
-                filter_parts.push(filter)
+                if 'watermark' == filter[0].to_s
+                    # avoid String#split because there could be an unknown
+                    # number of commas in the url portion
+                    md = filter[1].match(/(.*),([^,]*),([^,]*),([^,]*)/)
+                    watermark_url, x_pos, y_pos, alpha = $1, $2, $3, $4
+
+                    # escape the URL otherwise certain characters like '?' could interfere with the containing URL
+                    watermark_url = CGI::escape(watermark_url)
+
+                    filter_parts.push([filter[0], "#{watermark_url},#{x_pos},#{y_pos},#{alpha}"])
+                else
+                    filter_parts.push(filter)
+                end
               end
 
               url_parts.push("filters:#{ filter_parts.join(':') }")
