@@ -196,6 +196,14 @@ describe Thumbor::CryptoURL, "#url_for" do
 
         url.should == image_md5
     end
+
+    it "should escape the URL used for a watermark" do
+        crypto = Thumbor::CryptoURL.new key
+
+        watermark_url = "http://my.domain.com/some/image/url.jpg?center=37.77,-122.412"
+        url = crypto.url_for :image => image_url, :filters => [[:watermark, watermark_url + ",1,2,3"]]
+        url.should include("#{CGI::escape(watermark_url) + ',1,2,3'}")
+    end
 end
 
 describe Thumbor::CryptoURL, "#generate" do
