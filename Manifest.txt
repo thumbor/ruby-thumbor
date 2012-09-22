@@ -4,6 +4,8 @@ PostInstall.txt
 README.rdoc
 Rakefile
 lib/ruby-thumbor.rb
+lib/thumbor/crypto_url.rb
+lib/thumbor/version.rb
 script/console
 script/destroy
 script/generate

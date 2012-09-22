@@ -1,8 +1,11 @@
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
 require 'rubygems'
 gem 'hoe', '>= 2.1.0'
 require 'hoe'
 require 'fileutils'
-require './lib/ruby-thumbor'
+require 'thumbor/version'
 
 Hoe.plugin :newgem
 # Hoe.plugin :website
@@ -13,6 +16,7 @@ Hoe.plugin :newgem
 $hoe = Hoe.spec 'ruby-thumbor' do
   self.developer 'Bernardo Heynemann', 'heynemann@gmail.com'
   self.post_install_message = 'PostInstall.txt'
+  self.version = Thumbor::VERSION
   self.rubyforge_name       = 'ruby-thumbor'
 end
 
