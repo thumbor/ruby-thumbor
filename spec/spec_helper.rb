@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-if /^1\.8/ === RUBY_VERSION
+if /^1\.9/ === RUBY_VERSION
   require 'simplecov'
 
   SimpleCov.start do
