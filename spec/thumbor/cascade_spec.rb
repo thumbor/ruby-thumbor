@@ -294,8 +294,8 @@ describe Thumbor::Cascade do
     end
 
     it "should allow thumbor to decrypt it properly with halign" do
-      url = subject.width(300).height(200).meta(true).smart(true).flip(true).flop(true)
-              .halign(:left).generate
+      url = subject.width(300).height(200).meta(true).smart(true).flip(true).flop(true).
+            halign(:left).generate
 
       encrypted = url.split('/')[1]
 
@@ -313,8 +313,8 @@ describe Thumbor::Cascade do
     end
 
     it "should allow thumbor to decrypt it properly with valign" do
-      url = subject.width(300).height(200).meta(true).smart(true).flip(true).flop(true)
-              .halign(:left).valign(:top).generate
+      url = subject.width(300).height(200).meta(true).smart(true).flip(true).flop(true).
+            halign(:left).valign(:top).generate
 
       encrypted = url.split('/')[1]
 

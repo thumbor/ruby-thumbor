@@ -28,7 +28,7 @@ module Thumbor
     end
 
     def method_missing(m, *args)
-      if m =~ /^(.+)_filter$/
+      if /^(.+)_filter$/.match(m.to_s)
         @filters << "#{$1}(#{args[0]})"
       else
         @options[m] = args
