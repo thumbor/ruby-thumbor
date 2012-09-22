@@ -5,11 +5,11 @@ require 'cgi'
 
 module Thumbor
     class CryptoURL
-        attr_accessor :key, :computed_key
+        attr_accessor :computed_key
 
         def initialize(key)
-            @key = key
-            @computed_key = (key * 16)[0..15]
+            Thumbor.key = key
+            @computed_key = (Thumbor.key * 16)[0..15]
         end
 
         def pad(s)
@@ -126,7 +126,7 @@ module Thumbor
             url_options = url_for(options, false)
             url = "#{url_options}/#{options[:image]}"
 
-            signature = OpenSSL::HMAC.digest('sha1', @key, url)
+            signature = OpenSSL::HMAC.digest('sha1', Thumbor.key, url)
             signature = url_safe_base64(signature)
 
             "/#{signature}/#{url}"
