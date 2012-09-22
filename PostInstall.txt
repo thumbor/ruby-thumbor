@@ -1,3 +1,0 @@
-
-For more information on ruby-thumbor, see https://rubygems.org/gems/ruby-thumbor.
-

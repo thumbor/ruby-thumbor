@@ -1,8 +1,6 @@
 source :rubygems
 
 group :development do
-    gem "hoe"
-    gem "newgem"
     gem "debugger", :platforms => :mri_19
 end
 
