@@ -29,7 +29,7 @@ module Thumbor
 
     def method_missing(m, *args)
       if /^(.+)_filter$/.match(m.to_s)
-        @filters << "#{$1}(#{args[0]})"
+        @filters << "#{$1}(#{escape_args(args).join(',')})"
       else
         @options[m] = args
       end
@@ -37,6 +37,13 @@ module Thumbor
     end
 
     private
+
+    def escape_args(args)
+      args.map do |arg|
+        arg = CGI::escape(arg) if arg.is_a? String and arg.match(/^https?:\/\//)
+        arg
+      end
+    end
 
     def prepare_options(options)
       options.reduce({}) do |final_options, item|

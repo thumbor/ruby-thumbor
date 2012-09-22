@@ -145,6 +145,11 @@ describe Thumbor::Cascade do
       url = subject.brightness_filter(30).quality_filter(20).url_for
       url.should == 'filters:brightness(30):quality(20)/' << image_md5
     end
+
+    it "should escape url args" do
+      url = subject.watermark_filter('http://my-server.com/image.png', 30).quality_filter(20).url_for
+      url.should == 'filters:watermark(http%3A%2F%2Fmy-server.com%2Fimage.png,30):quality(20)/' << image_md5
+    end
   end
 
   describe '#generate' do
