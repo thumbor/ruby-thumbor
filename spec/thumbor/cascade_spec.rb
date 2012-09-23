@@ -20,6 +20,10 @@ describe Thumbor::Cascade do
     end
   end
 
+  it 'should raise an error' do
+    expect{ subject.god_of_war_crop }.to raise_error(NoMethodError)
+  end
+
   describe '#url_for' do
 
     it "should return just the image hash if no arguments passed" do

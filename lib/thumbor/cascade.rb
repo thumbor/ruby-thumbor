@@ -8,9 +8,18 @@ module Thumbor
   class Cascade
     attr_accessor :image, :old_crypto, :options, :filters
 
+    @available_options = [:meta, :crop, :width, :height, :flip,:flop, :halign, :valign, :smart, :fit_in, :old]
+
     extend Forwardable
 
     def_delegators :@old_crypto, :computed_key
+
+    @available_options.each do |opt|
+      define_method(opt) do |*args|
+        @options[opt] = args
+        self
+      end
+    end
 
     def initialize(image=nil)
       @image = image
@@ -30,10 +39,10 @@ module Thumbor
     def method_missing(m, *args)
       if /^(.+)_filter$/.match(m.to_s)
         @filters << "#{$1}(#{escape_args(args).join(',')})"
+        self
       else
-        @options[m] = args
+        super
       end
-      self
     end
 
     private
