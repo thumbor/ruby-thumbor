@@ -8,7 +8,7 @@ module Thumbor
   class Cascade
     attr_accessor :image, :old_crypto, :options, :filters
 
-    @available_options = [:meta, :crop, :width, :height, :flip,:flop, :halign, :valign, :smart, :fit_in, :old]
+    @available_options = [:meta, :crop, :width, :height, :flip,:flop, :halign, :valign, :smart, :fit_in, :old, :trim]
 
     extend Forwardable
 
@@ -16,6 +16,7 @@ module Thumbor
 
     @available_options.each do |opt|
       define_method(opt) do |*args|
+        args = [true] if args.empty?
         @options[opt] = args
         self
       end

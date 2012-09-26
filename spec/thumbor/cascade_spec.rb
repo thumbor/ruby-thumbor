@@ -154,6 +154,21 @@ describe Thumbor::Cascade do
       url = subject.watermark_filter('http://my-server.com/image.png', 30).quality_filter(20).url_for
       url.should == 'filters:watermark(http%3A%2F%2Fmy-server.com%2Fimage.png,30):quality(20)/' << image_md5
     end
+
+    it "should have trim without params" do
+      url = subject.trim.url_for
+      url.should == 'trim/' << image_md5
+    end
+
+    it "should have trim with direction param" do
+      url = subject.trim('bottom-right').url_for
+      url.should == 'trim:bottom-right/' << image_md5
+    end
+
+    it "should have trim with direction and tolerance param" do
+      url = subject.trim('bottom-right', 15).url_for
+      url.should == 'trim:bottom-right:15/' << image_md5
+    end
   end
 
   describe '#generate' do

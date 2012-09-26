@@ -126,6 +126,21 @@ describe Thumbor::CryptoURL do
       url = subject.url_for :image => image_url, :filters => []
       url.should == image_md5
     end
+
+    it "should have trim without params" do
+      url = subject.url_for :image => image_url, :trim => true
+      url.should == 'trim/' << image_md5
+    end
+
+    it "should have trim with direction param" do
+      url = subject.url_for :image => image_url, :trim => ['bottom-right']
+      url.should == 'trim:bottom-right/' << image_md5
+    end
+
+    it "should have trim with direction and tolerance param" do
+      url = subject.url_for :image => image_url, :trim => ['bottom-right', 15]
+      url.should == 'trim:bottom-right:15/' << image_md5
+    end
   end
 
   describe '#generate' do

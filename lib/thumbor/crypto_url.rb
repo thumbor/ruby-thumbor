@@ -91,6 +91,12 @@ module Thumbor
                 url_parts.push('smart')
             end
 
+            if options[:trim]
+                trim_options  = ['trim']
+                trim_options << options[:trim] unless options[:trim] == true or options[:trim][0] == true
+                url_parts.push(trim_options.join(':'))
+            end
+
             if options[:filters] && !options[:filters].empty?
               filter_parts = []
               options[:filters].each do |filter|
