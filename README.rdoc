@@ -1,4 +1,4 @@
-= ruby-thumbor {<img src="https://secure.travis-ci.org/heynemann/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/heynemann/ruby-thumbor]
+= ruby-thumbor {<img src="https://secure.travis-ci.org/heynemann/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/heynemann/ruby-thumbor] {<img src="https://gemnasium.com/heynemann/ruby-thumbor.png" alt="Dependency Status" />}[https://gemnasium.com/heynemann/ruby-thumbor]
 
 * http://github.com/heynemann/ruby-thumbor
 
