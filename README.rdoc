@@ -17,7 +17,16 @@ No dependencies required for regular usage.
 
 * thumbor (http://github.com/globocom/thumbor) for running ruby-thumbor tests.
 
+== INSTALL:
+
+    gem install ruby-thumbor
+
+    gem 'ruby-thumbor'
+
+
 == USAGE:
+
+    require 'ruby-thumbor'
 
     crypto = Thumbor::CryptoURL.new :key => 'my-security-key'
 
@@ -27,6 +36,8 @@ No dependencies required for regular usage.
     # /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
 
 or
+
+    require 'ruby-thumbor'
 
     Thumbor.key = 'my-security-key'
     image = Thumbor::Cascade.new('my.server.com/path/to/image.jpg')
@@ -56,10 +67,6 @@ Available arguments to the generate method:
     :smart => <bool> - flag that indicates that thumbor should use smart cropping;
 
 If you need more info on what each option does, check thumbor's documentation at https://github.com/globocom/thumbor/wiki.
-
-== INSTALL:
-
-* sudo gem install ruby-thumbor
 
 == CONTRIBUTIONS:
 
