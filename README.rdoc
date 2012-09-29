@@ -19,12 +19,18 @@ No dependencies required for regular usage.
 
 == USAGE:
 
-    crypto = CryptoURL.new :key => 'my-security-key'
+    crypto = Thumbor::CryptoURL.new :key => 'my-security-key'
 
     url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
 
     # url will contain something like:
     # /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
+
+    or
+
+    Thumbor.key = 'my-security-key'
+    image = Thumbor.cascade.new('my.server.com/path/to/image.jpg')
+    image.width(300).height(200).watermark_filter('http://my-server.com/image.png', 30).generate
 
 Available arguments to the generate method:
 
