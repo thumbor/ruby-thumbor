@@ -28,7 +28,7 @@ No dependencies required for regular usage.
 
     require 'ruby-thumbor'
 
-    crypto = Thumbor::CryptoURL.new :key => 'my-security-key'
+    crypto = Thumbor::CryptoURL.new 'my-security-key'
 
     url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
 
