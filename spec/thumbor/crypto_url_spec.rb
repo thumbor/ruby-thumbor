@@ -144,6 +144,11 @@ describe Thumbor::CryptoURL do
   end
 
   describe '#generate' do
+    it "should generate a proper url when only an image url is specified" do
+      url = subject.generate :image => image_url
+
+      url.should == "/964rCTkAEDtvjy_a572k7kRa0SU=/#{image_url}"
+    end
 
     it "should create a new instance passing key and keep it" do
       url = subject.generate :width => 300, :height => 200, :image => image_url
