@@ -129,13 +129,17 @@ module Thumbor
         end
 
         def generate_new(options)
-            url_options = url_for(options, false)
-            url = "#{url_options}/#{options[:image]}"
+            thumbor_path = ""
 
-            signature = OpenSSL::HMAC.digest('sha1', Thumbor.key, url)
-            signature = url_safe_base64(signature)
+            image_options = url_for(options, false)
+            thumbor_path << image_options + '/' unless image_options.empty?
 
-            "/#{signature}/#{url}"
+            thumbor_path << options[:image]
+
+            signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', Thumbor.key, thumbor_path))
+            thumbor_path.insert(0, "/#{signature}/")
+
+            thumbor_path
         end
 
         def generate(options)
