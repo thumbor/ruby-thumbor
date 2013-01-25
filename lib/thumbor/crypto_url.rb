@@ -9,7 +9,10 @@ module Thumbor
 
         def initialize(key)
             Thumbor.key = key
-            @computed_key = (Thumbor.key * 16)[0..15]
+        end
+
+        def computed_key
+            (Thumbor.key * 16)[0..15]
         end
 
         def pad(s)
@@ -121,7 +124,7 @@ module Thumbor
         def generate_old(options)
             url = pad(url_for(options))
             cipher = OpenSSL::Cipher::Cipher.new('aes-128-ecb').encrypt
-            cipher.key = @computed_key
+            cipher.key = computed_key
             encrypted = cipher.update(url)
             based = url_safe_base64(encrypted)
 
