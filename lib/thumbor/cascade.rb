@@ -8,7 +8,7 @@ module Thumbor
   class Cascade
     attr_accessor :image, :old_crypto, :options, :filters
 
-    @available_options = [:meta, :crop, :width, :height, :flip,:flop, :halign, :valign, :smart, :fit_in, :old, :trim]
+    @available_options = [:meta, :crop, :center, :original_width, :original_height, :width, :height, :flip,:flop, :halign, :valign, :smart, :fit_in, :old, :trim]
 
     extend Forwardable
 
