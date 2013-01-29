@@ -173,6 +173,85 @@ describe Thumbor::Cascade do
       url = subject.trim('bottom-right', 15).url_for
       url.should == 'trim:bottom-right:15/' << image_md5
     end
+
+    it "should have the right crop when cropping horizontally and given a left center" do
+      url = subject.original_width(100).original_height(100).width(40).height(50).center(0, 50).url_for
+      url.should == '0x0:80x100/40x50/' << image_md5
+    end
+
+    it "should have the right crop when cropping horizontally and given a right center" do
+      url = subject.original_width(100).original_height(100).width(40).height(50).center(100, 50).url_for
+      url.should == '20x0:100x100/40x50/' << image_md5
+    end
+
+    it "should have the right crop when cropping horizontally and given the actual center" do
+      url = subject.original_width(100).original_height(100).width(40).height(50).center(50, 50).url_for
+      url.should == '10x0:90x100/40x50/' << image_md5
+    end
+
+    it "should have the right crop when cropping vertically and given a top center" do
+      url = subject.original_width(100).original_height(100).width(50).height(40).center(50, 0).url_for
+      url.should == '0x0:100x80/50x40/' << image_md5
+    end
+
+    it "should have the right crop when cropping vertically and given a bottom center" do
+      url = subject.original_width(100).original_height(100).width(50).height(40).center(50, 100).url_for
+      url.should == '0x20:100x100/50x40/' << image_md5
+    end
+
+    it "should have the right crop when cropping vertically and given the actual center" do
+      url = subject.original_width(100).original_height(100).width(50).height(40).center(50, 50).url_for
+      url.should == '0x10:100x90/50x40/' << image_md5
+    end
+
+    it "should have the no crop when not necessary" do
+      url = subject.original_width(100).original_height(100).width(50).height(50).center(50, 0).url_for
+      url.should == '50x50/' << image_md5
+    end
+
+    it "should blow up with a bad center" do
+      expect { subject.original_width(100).original_height(100).width(50).height(50).center(50).url_for }.to raise_error(RuntimeError)
+    end
+
+    it "should have no crop with a missing original_height" do
+      url = subject.original_width(100).width(50).height(40).center(50, 0).url_for
+      url.should == '50x40/' << image_md5
+    end
+
+    it "should have no crop with a missing original_width" do
+      url = subject.original_height(100).width(50).height(40).center(50, 0).url_for
+      url.should == '50x40/' << image_md5
+    end
+
+    it "should have no crop with out a width and height" do
+      url = subject.original_width(100).original_height(100).center(50, 50).url_for
+      url.should == image_md5
+    end
+
+    it "should use the original width with a missing width" do
+      url = subject.original_width(100).original_height(100).height(80).center(50, 50).url_for
+      url.should == '0x10:100x90/0x80/' << image_md5
+    end
+
+    it "should use the original height with a missing height" do
+      url = subject.original_width(100).original_height(100).width(80).center(50, 50).url_for
+      url.should == '10x0:90x100/80x0/' << image_md5
+    end
+
+    it "should have the right crop with a negative width" do
+      url = subject.original_width(100).original_height(100).width(-50).height(40).center(50, 50).url_for
+      url.should == '0x10:100x90/-50x40/' << image_md5
+    end
+
+    it "should have the right crop with a negative height" do
+      url = subject.original_width(100).original_height(100).width(50).height(-40).center(50, 50).url_for
+      url.should == '0x10:100x90/50x-40/' << image_md5
+    end
+
+    it "should have the right crop with a negative height and width" do
+      url = subject.original_width(100).original_height(100).width(-50).height(-40).center(50, 50).url_for
+      url.should == '0x10:100x90/-50x-40/' << image_md5
+    end
   end
 
   describe '#generate' do
