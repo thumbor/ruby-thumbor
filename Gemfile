@@ -4,7 +4,6 @@ group :development do
     gem 'guard'
     gem 'guard-rspec'
     gem 'rb-fsevent', '~> 0.9.1'
-    gem "debugger", :platforms => :mri_19
 end
 
 group :development, :test do
