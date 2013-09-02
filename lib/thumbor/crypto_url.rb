@@ -217,9 +217,12 @@ module Thumbor
 
             thumbor_path << options[:image]
 
-            signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', Thumbor.key, thumbor_path))
-            thumbor_path.insert(0, "/#{signature}/")
-
+            if Thumbor.key
+                signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', Thumbor.key, thumbor_path))
+                thumbor_path.insert(0, "/#{signature}/")
+            else 
+                thumbor_path.insert(0, "/unsafe/")
+            end
             thumbor_path
         end
 

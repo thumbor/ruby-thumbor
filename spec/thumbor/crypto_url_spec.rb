@@ -452,4 +452,13 @@ describe Thumbor::CryptoURL do
       decrypted["filters"].should == "quality(20):brightness(10)"
     end
   end
+
+  describe "without security key" do
+    subject { Thumbor::CryptoURL.new nil }
+    it "should generate a unsafe url" do
+      url = subject.generate :image => image_url
+
+      url.should == "/unsafe/#{image_url}"
+    end
+  end
 end
