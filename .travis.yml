@@ -10,7 +10,7 @@ install:
     - sudo apt-get update -y
 
     # install aptitude packages
-    - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
+    - LDFLAGS=-lm sudo apt-get install -y $(< requirements)
 
     # install ruby gems
     - gem install bundler
