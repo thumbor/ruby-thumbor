@@ -142,6 +142,13 @@ describe Thumbor::CryptoURL do
       url.should == 'trim:bottom-right:15/' << image_md5
     end
 
+    it "should have the trim option as the first one" do
+      url = subject.url_for :image => image_url, :smart => true, :trim => true
+
+      url.should == 'trim/smart/f33af67e41168e80fcc5b00f8bd8061a'
+    end
+
+
     it "should have the right crop when cropping horizontally and given a left center" do
       url = subject.url_for :image => image_url, :original_width => 100, :original_height => 100, :width => 40, :height => 50, :center => [0, 50]
       url.should == '0x0:80x100/40x50/' << image_md5
