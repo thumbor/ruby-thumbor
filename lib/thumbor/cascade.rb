@@ -30,11 +30,11 @@ module Thumbor
     end
 
     def url_for
-      @old_crypto.url_for prepare_options(@options).merge({:image => @image, :filters => @filters})
+      @old_crypto.url_for prepare_options(@options).merge({image: @image, filters: @filters})
     end
 
     def generate
-      @old_crypto.generate prepare_options(@options).merge({:image => @image, :filters => @filters})
+      @old_crypto.generate prepare_options(@options).merge({image: @image, filters: @filters})
     end
 
     def method_missing(m, *args)
