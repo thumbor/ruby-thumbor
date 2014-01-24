@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    ruby-thumbor (1.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -49,8 +54,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  guard
   guard-rspec
   rb-fsevent (~> 0.9.1)
   rspec
+  ruby-thumbor!
   simplecov
