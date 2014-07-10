@@ -1,6 +1,6 @@
 = ruby-thumbor {<img src="https://secure.travis-ci.org/thumbor/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/thumbor/ruby-thumbor] {<img src="https://gemnasium.com/thumbor/ruby-thumbor.png" alt="Dependency Status" />}[https://gemnasium.com/thumbor/ruby-thumbor]
 
-* http://github.com/heynemann/ruby-thumbor
+* http://github.com/thumbor/ruby-thumbor
 
 == DESCRIPTION:
 
