@@ -160,8 +160,14 @@ module Thumbor
                 end
             end
 
-            if options[:fit_in]
-                url_parts.push('fit-in')
+            [:fit_in, :adaptive_fit_in, :full_fit_in, :adaptive_full_fit_in].each do |fit|
+                if options[fit]
+                    url_parts.push(fit.to_s.gsub('_','-'))
+                end
+            end
+
+            if options.include?(:fit_in) or options.include?(:full_fit_in) and not (options.include?(:width) or options.include?(:height))
+                raise ArgumentError, 'When using fit-in or full-fit-in, you must specify width and/or height.'
             end
 
             calculate_width_and_height(url_parts, options)
@@ -220,7 +226,7 @@ module Thumbor
             if Thumbor.key
                 signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', Thumbor.key, thumbor_path))
                 thumbor_path.insert(0, "/#{signature}/")
-            else 
+            else
                 thumbor_path.insert(0, "/unsafe/")
             end
             thumbor_path
