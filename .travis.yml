@@ -23,8 +23,7 @@ install:
     - LDFLAGS=-lm sudo apt-get install -y $(< requirements)
 
     # install ruby gems
-    - gem install bundler
-    - bundle install
+    - bundle
 
 script:
     # creating and activating virtualenv
