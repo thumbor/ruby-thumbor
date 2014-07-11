@@ -3,13 +3,16 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
-  - 2.1.0
-  - 2.1.1
+  - 2.1.2
   - ruby-head
+  - jruby
+  - rbx-2
 
 matrix:
   allow_failures:
     - rvm: ruby-head
+    - rvm: jruby
+    - rvm: rbx-2
 
 install:
     # update aptitude
@@ -36,3 +39,6 @@ script:
     # finally run tests
     - rake spec
 
+os:
+  - linux
+  - osx
