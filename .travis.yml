@@ -38,7 +38,3 @@ script:
 
     # finally run tests
     - rake spec
-
-os:
-  - linux
-  - osx
