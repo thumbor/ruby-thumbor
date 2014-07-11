@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-ruby-thumbor is the client to the thumbor imaging service (http://github.com/globocom/thumbor).
+ruby-thumbor is the client to the thumbor imaging service (http://github.com/thumbor/thumbor).
 
 == FEATURES:
 
@@ -15,7 +15,7 @@ ruby-thumbor is the client to the thumbor imaging service (http://github.com/glo
 
 No dependencies required for regular usage.
 
-* thumbor (http://github.com/globocom/thumbor) for running ruby-thumbor tests.
+* thumbor (http://github.com/thumbor/thumbor) for running ruby-thumbor tests.
 
 == INSTALL:
 
@@ -66,7 +66,7 @@ Available arguments to the generate method:
 
     :smart => <bool> - flag that indicates that thumbor should use smart cropping;
 
-If you need more info on what each option does, check thumbor's documentation at https://github.com/globocom/thumbor/wiki.
+If you need more info on what each option does, check thumbor's documentation at https://github.com/thumbor/thumbor/wiki.
 
 == CONTRIBUTIONS:
 
