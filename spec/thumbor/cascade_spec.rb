@@ -344,11 +344,11 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["horizontal_flip"]).to eq false
-      expect(decrypted["vertical_flip"]).to eq false
-      expect(decrypted["smart"]).to eq false
-      expect(decrypted["meta"]).to eq false
-      expect(decrypted["fit_in"]).to eq false
+      expect(decrypted["horizontal_flip"]).to be_falsy
+      expect(decrypted["vertical_flip"]).to be_falsy
+      expect(decrypted["smart"]).to be_falsy
+      expect(decrypted["meta"]).to be_falsy
+      expect(decrypted["fit_in"]).to be_falsy
       expect(decrypted["crop"]["left"]).to eq 0
       expect(decrypted["crop"]["top"]).to eq 0
       expect(decrypted["crop"]["right"]).to eq 0
@@ -368,7 +368,7 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
@@ -382,8 +382,8 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
-      expect(decrypted["smart"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
+      expect(decrypted["smart"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
@@ -397,7 +397,7 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["fit_in"]).to eq true
+      expect(decrypted["fit_in"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
@@ -411,12 +411,12 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
-      expect(decrypted["smart"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
+      expect(decrypted["smart"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
-      expect(decrypted["horizontal_flip"]).to eq true
+      expect(decrypted["horizontal_flip"]).to be_truthy
 
     end
 
@@ -427,13 +427,13 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
-      expect(decrypted["smart"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
+      expect(decrypted["smart"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
-      expect(decrypted["horizontal_flip"]).to eq true
-      expect(decrypted["vertical_flip"]).to eq true
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
 
     end
 
@@ -445,13 +445,13 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
-      expect(decrypted["smart"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
+      expect(decrypted["smart"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
-      expect(decrypted["horizontal_flip"]).to eq true
-      expect(decrypted["vertical_flip"]).to eq true
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
       expect(decrypted["halign"]).to eq "left"
 
     end
@@ -464,13 +464,13 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["meta"]).to eq true
-      expect(decrypted["smart"]).to eq true
+      expect(decrypted["meta"]).to be_truthy
+      expect(decrypted["smart"]).to be_truthy
       expect(decrypted["image_hash"]).to eq image_md5
       expect(decrypted["width"]).to eq 300
       expect(decrypted["height"]).to eq 200
-      expect(decrypted["horizontal_flip"]).to eq true
-      expect(decrypted["vertical_flip"]).to eq true
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
       expect(decrypted["halign"]).to eq "left"
       expect(decrypted["valign"]).to eq "top"
 
@@ -483,10 +483,10 @@ describe Thumbor::Cascade do
 
       decrypted = decrypt_in_thumbor(encrypted)
 
-      expect(decrypted["horizontal_flip"]).to eq false
-      expect(decrypted["vertical_flip"]).to eq false
-      expect(decrypted["smart"]).to eq false
-      expect(decrypted["meta"]).to eq false
+      expect(decrypted["horizontal_flip"]).to be_falsy
+      expect(decrypted["vertical_flip"]).to be_falsy
+      expect(decrypted["smart"]).to be_falsy
+      expect(decrypted["meta"]).to be_falsy
       expect(decrypted["crop"]["left"]).to eq 10
       expect(decrypted["crop"]["top"]).to eq 20
       expect(decrypted["crop"]["right"]).to eq 30
