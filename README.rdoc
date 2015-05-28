@@ -42,7 +42,7 @@ or
 
     require 'ruby-thumbor'
 
-    image = Thumbor::Cascade.new(my-security-key', 'my.server.com/path/to/image.jpg')
+    image = Thumbor::Cascade.new('my-security-key', 'my.server.com/path/to/image.jpg')
     image.width(300).height(200).watermark_filter('http://my-server.com/image.png', 30).generate
 
 Available arguments to the generate method:
