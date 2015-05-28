@@ -8,16 +8,9 @@ describe Thumbor::Cascade do
   let(:image_md5) { 'f33af67e41168e80fcc5b00f8bd8061a' }
   let(:key) { 'my-security-key' }
 
-  subject { Thumbor::Cascade.new image_url }
-
-  after(:each) do
-    Thumbor.key = nil
-  end
+  subject { Thumbor::Cascade.new key, image_url }
 
   describe '#new' do
-    before do
-      Thumbor.key = key
-    end
 
     it "should create a new instance passing key and keep it" do
       expect(subject.computed_key).to eq 'my-security-keym'
@@ -277,9 +270,6 @@ describe Thumbor::Cascade do
   end
 
   describe '#generate' do
-    before do
-      Thumbor.key = key
-    end
 
     it "should create a new instance passing key and keep it" do
       url = subject.width(300).height(200).generate
@@ -287,10 +277,8 @@ describe Thumbor::Cascade do
     end
 
     it "should be able to change the Thumbor key" do
-      thumbor = subject.width(300).height(200)
-      url1 = thumbor.generate
-      Thumbor.key = 'another-thumbor-key'
-      url2 = thumbor.generate
+      url1 = subject.width(300).height(200).generate
+      url2 = Thumbor::Cascade.new('another-thumbor-key', image_url).width(300).height(200).generate
       expect(url1).not_to eq url2
     end
 
@@ -326,11 +314,8 @@ describe Thumbor::Cascade do
   end
 
   describe "#generate :old => true" do
-    before do
-      Thumbor.key = key
-    end
 
-    subject { Thumbor::Cascade.new(image_url).old(true) }
+    subject { Thumbor::Cascade.new(key, image_url).old(true) }
 
     it "should create a new instance passing key and keep it" do
       url = subject.width(300).height(200).generate

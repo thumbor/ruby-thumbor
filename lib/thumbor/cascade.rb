@@ -29,11 +29,12 @@ module Thumbor
       end
     end
 
-    def initialize(image=nil)
+    def initialize(key=false, image=nil)
+      @key = key
       @image = image
       @options = {}
       @filters = []
-      @old_crypto = Thumbor::CryptoURL.new Thumbor.key
+      @old_crypto = Thumbor::CryptoURL.new @key
     end
 
     def url_for

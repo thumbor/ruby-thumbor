@@ -64,3 +64,6 @@ DEPENDENCIES
   rspec
   ruby-thumbor!
   simplecov
+
+BUNDLED WITH
+   1.10.0

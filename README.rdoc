@@ -23,6 +23,9 @@ No dependencies required for regular usage.
 
     gem 'ruby-thumbor'
 
+== BREAKING CHANGE ON 2.0:
+
+    Thumbor::Cascade.new now gets key, image
 
 == USAGE:
 
@@ -39,8 +42,7 @@ or
 
     require 'ruby-thumbor'
 
-    Thumbor.key = 'my-security-key'
-    image = Thumbor::Cascade.new('my.server.com/path/to/image.jpg')
+    image = Thumbor::Cascade.new(my-security-key', 'my.server.com/path/to/image.jpg')
     image.width(300).height(200).watermark_filter('http://my-server.com/image.png', 30).generate
 
 Available arguments to the generate method:

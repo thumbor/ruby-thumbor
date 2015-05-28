@@ -7,12 +7,12 @@ module Thumbor
     class CryptoURL
         attr_accessor :computed_key
 
-        def initialize(key)
-            Thumbor.key = key
+        def initialize(key=false)
+            @key = key
         end
 
         def computed_key
-            (Thumbor.key * 16)[0..15]
+            (@key * 16)[0..15]
         end
 
         def pad(s)
@@ -223,8 +223,8 @@ module Thumbor
 
             thumbor_path << options[:image]
 
-            if Thumbor.key
-                signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', Thumbor.key, thumbor_path))
+            if @key
+                signature = url_safe_base64(OpenSSL::HMAC.digest('sha1', @key, thumbor_path))
                 thumbor_path.insert(0, "/#{signature}/")
             else
                 thumbor_path.insert(0, "/unsafe/")
