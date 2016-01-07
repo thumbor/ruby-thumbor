@@ -46,11 +46,7 @@ module Thumbor
                 width = '0' if not has_width and not options[:flip]
             end
 
-            if width or height
-                width = width.to_s
-                height = height.to_s
-                url_parts.push(width << 'x' << height)
-            end
+            url_parts.push("#{width}x#{height}") if width || height
         end
 
         def calculate_centered_crop(options)

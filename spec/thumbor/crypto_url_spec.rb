@@ -227,6 +227,17 @@ describe Thumbor::CryptoURL do
       url = subject.url_for :image => image_url, :original_width => 100, :original_height => 100, :width => -50, :height => -40, :center => [50, 50]
       expect(url).to eq('0x10:100x90/-50x-40/' << image_md5)
     end
+
+    it "should handle string values" do
+      url = subject.url_for :image => image_url, :width => '40', :height => '50'
+      expect(url).to eq('40x50/' << image_md5)
+    end
+
+    it "should never mutate its arguments" do
+      opts = {:image => image_url, :width => '500'}
+      subject.url_for opts
+      expect(opts).to eq({:image => image_url, :width => '500'})
+    end
   end
 
   describe '#generate' do
