@@ -377,7 +377,7 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
+      expect(decrypted["horizontal_flip"]).to be_truthy
 
     end
 
@@ -393,8 +393,8 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
 
     end
 
@@ -411,9 +411,9 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
-      decrypted["halign"] == "left"
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
+      expect(decrypted["halign"]).to eq('left')
 
     end
 
@@ -430,10 +430,10 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
-      decrypted["halign"] == "left"
-      decrypted["valign"] == "top"
+      expect(decrypted["horizontal_flip"]).to be_truthy
+      expect(decrypted["vertical_flip"]).to be_truthy
+      expect(decrypted["halign"]).to eq('left')
+      expect(decrypted["valign"]).to eq('top')
 
     end
 
