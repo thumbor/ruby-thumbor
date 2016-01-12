@@ -1,6 +1,11 @@
 require 'simplecov'
-require 'coveralls'
-Coveralls.wear!
+begin
+  require 'coveralls'
+rescue LoadError
+  puts 'Running on Jruby'
+end
+
+Coveralls.wear! if defined? Coveralls
 
 SimpleCov.start do
   add_filter '/spec/'

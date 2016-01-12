@@ -20,9 +20,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rspec')
   s.add_development_dependency('simplecov')
   s.add_development_dependency('guard-rspec')
-  s.add_development_dependency('rb-fsevent', '~> 0.9.1')
-  s.add_development_dependency('listen', '~> 1.3.1') # the last one 1.9.2 compatible
   s.add_development_dependency('rake')
-  s.add_development_dependency('coveralls')
-  s.add_development_dependency('tins', '< 1.7.0') # the last one 1.9.2 compatible
 end
