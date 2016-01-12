@@ -5,7 +5,7 @@ require 'cgi'
 
 module Thumbor
     class CryptoURL
-        attr_accessor :computed_key
+        attr_writer :computed_key
 
         def initialize(key=false)
             @key = key
