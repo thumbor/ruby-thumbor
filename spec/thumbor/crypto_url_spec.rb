@@ -377,7 +377,7 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
+      expect(decrypted["flip_horizontally"]).to be_truthy
 
     end
 
@@ -393,9 +393,8 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
-
+      expect(decrypted["flip_horizontally"]).to be_truthy
+      expect(decrypted["flip_vertically"]).to be_truthy
     end
 
     it "should allow thumbor to decrypt it properly with halign" do
@@ -411,10 +410,9 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
-      decrypted["halign"] == "left"
-
+      expect(decrypted["flip_horizontally"]).to be_truthy
+      expect(decrypted["flip_vertically"]).to be_truthy
+      expect(decrypted["halign"]).to eq("left")
     end
 
     it "should allow thumbor to decrypt it properly with valign" do
@@ -430,11 +428,10 @@ describe Thumbor::CryptoURL do
       expect(decrypted["image_hash"]).to eq(image_md5)
       expect(decrypted["width"]).to eq(300)
       expect(decrypted["height"]).to eq(200)
-      decrypted["flip_horizontally"] == true
-      decrypted["flip_vertically"] == true
-      decrypted["halign"] == "left"
-      decrypted["valign"] == "top"
-
+      expect(decrypted["flip_horizontally"]).to be_truthy
+      expect(decrypted["flip_vertically"]).to be_truthy
+      expect(decrypted["halign"]).to eq("left")
+      expect(decrypted["valign"]).to eq("top")
     end
 
     it "should allow thumbor to decrypt it properly with cropping" do
