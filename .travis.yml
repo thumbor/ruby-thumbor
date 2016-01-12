@@ -11,6 +11,7 @@ rvm:
   - 'ruby-head'
   - 'jruby'
   - 'rbx-2'
+  - 'rbx-3.5'
 
 matrix:
   allow_failures:
