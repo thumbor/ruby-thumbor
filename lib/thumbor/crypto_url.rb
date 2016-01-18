@@ -201,17 +201,7 @@ module Thumbor
             Base64.encode64(str).gsub('+', '-').gsub('/', '_').gsub!(/[\n]/, '')
         end
 
-        def generate_old(options)
-            url = pad(url_for(options))
-            cipher = OpenSSL::Cipher::Cipher.new('aes-128-ecb').encrypt
-            cipher.key = computed_key
-            encrypted = cipher.update(url)
-            based = url_safe_base64(encrypted)
-
-            "/#{based}/#{options[:image]}"
-        end
-
-        def generate_new(options)
+        def generate(options)
             thumbor_path = ""
 
             image_options = url_for(options, false)
@@ -226,11 +216,6 @@ module Thumbor
                 thumbor_path.insert(0, "/unsafe/")
             end
             thumbor_path
-        end
-
-        def generate(options)
-            return generate_old(options) if options[:old]
-            generate_new(options)
         end
     end
 end
