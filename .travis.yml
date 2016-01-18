@@ -13,10 +13,6 @@ rvm:
   - 'rbx-2'
   - 'rbx-3.5'
 
-matrix:
-  allow_failures:
-    - rvm: jruby
-
 addons:
   apt:
     packages:
