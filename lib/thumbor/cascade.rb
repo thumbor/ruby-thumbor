@@ -15,7 +15,7 @@ module Thumbor
       :flop, :halign, :valign,
       :smart, :fit_in, :adaptive_fit_in,
       :full_fit_in, :adaptive_full_fit_in,
-      :trim]
+      :trim, :debug]
 
     extend Forwardable
 
