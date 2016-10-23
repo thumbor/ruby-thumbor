@@ -3,4 +3,3 @@ require 'thumbor/cascade'
 
 module Thumbor
 end
-
