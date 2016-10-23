@@ -72,6 +72,8 @@ Available arguments to the generate method:
     :valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping;
 
     :smart => <bool> - flag that indicates that thumbor should use smart cropping;
+    
+    :filters => ['blur(20)', 'watermark(http://my.site.com/img.png,-10,-10,50)'] - array of filters and their arguments
 
 If you need more info on what each option does, check thumbor's documentation at https://github.com/thumbor/thumbor/wiki.
 
