@@ -132,6 +132,10 @@ module Thumbor
 
             url_parts = Array.new
 
+            if options[:debug]
+                url_parts.push('debug')
+            end
+            
             if options[:trim]
                 trim_options  = ['trim']
                 trim_options << options[:trim] unless options[:trim] == true or options[:trim][0] == true
