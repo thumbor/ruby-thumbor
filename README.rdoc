@@ -33,9 +33,8 @@ No dependencies required for regular usage.
 
     require 'ruby-thumbor'
 
-    crypto = Thumbor::CryptoURL.new 'my-security-key'
-
-    url = crypto.generate :width => 200, :height => 300, :image => 'remote-image.com/path/to/image.jpg'
+    image = Thumbor::Cascade.new('my-security-key', 'remote-image.com/path/to/image.jpg')
+    image.width(300).height(200).watermark_filter('http://remote-image.com/path/to/image.jpg', 30).generate
 
     # url will contain something like:
     # /2913921in321n3k2nj32hjhj3h22/remote-image.com/path/to/image.jpg
@@ -43,11 +42,12 @@ No dependencies required for regular usage.
     # Now you just need to concatenate this generated path, with your thumbor server url
 
 or
-
     require 'ruby-thumbor'
 
-    image = Thumbor::Cascade.new('my-security-key', 'remote-image.com/path/to/image.jpg')
-    image.width(300).height(200).watermark_filter('http://remote-image.com/path/to/image.jpg', 30).generate
+    crypto = Thumbor::CryptoURL.new 'my-security-key'
+
+    url = crypto.generate :width => 200, :height => 300, :image => 'remote-image.com/path/to/image.jpg'
+
 
 Available arguments to the generate method:
 
