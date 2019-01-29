@@ -1,6 +1,0 @@
-libevent-dev
-libxml2-dev
-libcurl4-gnutls-dev
-python2.7-dev
-python-virtualenv
-python-pycurl-dbg

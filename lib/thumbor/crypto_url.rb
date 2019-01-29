@@ -15,10 +15,6 @@ module Thumbor
             (@key * 16)[0..15]
         end
 
-        def pad(s)
-            s + ("{" * (16 - s.length % 16))
-        end
-
         def calculate_width_and_height(url_parts, options)
             width = options[:width]
             height = options[:height]
@@ -125,7 +121,7 @@ module Thumbor
             options[:crop] = crop
         end
 
-        def url_for(options, include_hash = true)
+        def url_for(options)
             if not options[:image]
                 raise 'image is a required argument.'
             end
@@ -135,7 +131,7 @@ module Thumbor
             if options[:debug]
                 url_parts.push('debug')
             end
-            
+
             if options[:trim]
                 trim_options  = ['trim']
                 trim_options << options[:trim] unless options[:trim] == true or options[:trim][0] == true
@@ -193,11 +189,6 @@ module Thumbor
               url_parts.push("filters:#{ filter_parts.join(':') }")
             end
 
-            if include_hash
-                image_hash = Digest::MD5.hexdigest(options[:image])
-                url_parts.push(image_hash)
-            end
-
             return url_parts.join('/')
         end
 
@@ -208,7 +199,7 @@ module Thumbor
         def generate(options)
             thumbor_path = ""
 
-            image_options = url_for(options, false)
+            image_options = url_for(options)
             thumbor_path << image_options + '/' unless image_options.empty?
 
             thumbor_path << options[:image]

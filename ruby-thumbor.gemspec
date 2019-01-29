@@ -19,9 +19,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rspec')
   s.add_development_dependency('simplecov')
   s.add_development_dependency('rake')
-  if RUBY_VERSION < '2.2'
-    s.add_development_dependency('json', ['< 2.0'])
-    s.add_development_dependency('term-ansicolor', ['< 1.4'])
-    s.add_development_dependency('tins', ['< 1.7'])
-  end
+  s.add_development_dependency('rspec_junit_formatter')
 end

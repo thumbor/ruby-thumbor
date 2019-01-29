@@ -1,11 +1,7 @@
-= ruby-thumbor {<img src="https://secure.travis-ci.org/thumbor/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/thumbor/ruby-thumbor] {<img src="https://gemnasium.com/thumbor/ruby-thumbor.png" alt="Dependency Status" />}[https://gemnasium.com/thumbor/ruby-thumbor] {<img src="https://badge.fury.io/rb/ruby-thumbor.svg" alt="Gem Version" />}[http://badge.fury.io/rb/ruby-thumbor] {<img src="https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/thumbor/ruby-thumbor?branch=master]
+= ruby-thumbor {<img src="https://secure.travis-ci.org/thumbor/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/thumbor/ruby-thumbor] {<img src="https://badge.fury.io/rb/ruby-thumbor.svg" alt="Gem Version" />}[http://badge.fury.io/rb/ruby-thumbor] {<img src="https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/thumbor/ruby-thumbor?branch=master]
 
 
 * http://github.com/thumbor/ruby-thumbor
-
-== WARING:
-
-3.x version won't support old url's
 
 == DESCRIPTION:
 
@@ -28,9 +24,10 @@ No dependencies required for regular usage.
 
     gem 'ruby-thumbor'
 
-== BREAKING CHANGE ON 2.0:
+== BREAKING CHANGE ON 3.0:
 
-    Thumbor::Cascade.new now gets key, image
+    Old image Url isn't supported anymore
+    Switch from #url_for to #generate method
 
 == USAGE:
 
@@ -38,17 +35,19 @@ No dependencies required for regular usage.
 
     crypto = Thumbor::CryptoURL.new 'my-security-key'
 
-    url = crypto.generate :width => 200, :height => 300, :image => 'my.server.com/path/to/image.jpg'
+    url = crypto.generate :width => 200, :height => 300, :image => 'remote-image.com/path/to/image.jpg'
 
     # url will contain something like:
-    # /2913921in321n3k2nj32hjhj3h22/my.server.com/path/to/image.jpg
+    # /2913921in321n3k2nj32hjhj3h22/remote-image.com/path/to/image.jpg
+
+    # Now you just need to concatenate this generated path, with your thumbor server url
 
 or
 
     require 'ruby-thumbor'
 
-    image = Thumbor::Cascade.new('my-security-key', 'my.server.com/path/to/image.jpg')
-    image.width(300).height(200).watermark_filter('http://my-server.com/image.png', 30).generate
+    image = Thumbor::Cascade.new('my-security-key', 'remote-image.com/path/to/image.jpg')
+    image.width(300).height(200).watermark_filter('http://remote-image.com/path/to/image.jpg', 30).generate
 
 Available arguments to the generate method:
 
@@ -72,7 +71,7 @@ Available arguments to the generate method:
     :valign => :top, :middle or :bottom - horizontal alignment that thumbor should use for cropping;
 
     :smart => <bool> - flag that indicates that thumbor should use smart cropping;
-    
+
     :filters => ['blur(20)', 'watermark(http://my.site.com/img.png,-10,-10,50)'] - array of filters and their arguments
 
 If you need more info on what each option does, check thumbor's documentation at https://github.com/thumbor/thumbor/wiki.

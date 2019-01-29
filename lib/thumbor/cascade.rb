@@ -6,7 +6,7 @@ require 'cgi'
 
 module Thumbor
   class Cascade
-    attr_accessor :image, :old_crypto, :options, :filters
+    attr_accessor :image, :crypto, :options, :filters
 
     @available_options = [
       :meta, :crop, :center,
@@ -19,7 +19,7 @@ module Thumbor
 
     extend Forwardable
 
-    def_delegators :@old_crypto, :computed_key
+    def_delegators :@crypto, :computed_key
 
     @available_options.each do |opt|
       define_method(opt) do |*args|
@@ -34,15 +34,11 @@ module Thumbor
       @image = image
       @options = {}
       @filters = []
-      @old_crypto = Thumbor::CryptoURL.new @key
-    end
-
-    def url_for
-      @old_crypto.url_for prepare_options(@options).merge({image: @image, filters: @filters})
+      @crypto = Thumbor::CryptoURL.new @key
     end
 
     def generate
-      @old_crypto.generate prepare_options(@options).merge({image: @image, filters: @filters})
+      @crypto.generate prepare_options(@options).merge({image: @image, filters: @filters})
     end
 
     def method_missing(m, *args)
