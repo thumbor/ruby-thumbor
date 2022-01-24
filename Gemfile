@@ -2,6 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-platforms :ruby do
-  gem 'coveralls', require: false
-end
+gem 'rspec'
+gem 'simplecov',      require: false
+gem 'simplecov-lcov', require: false

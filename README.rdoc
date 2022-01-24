@@ -1,4 +1,4 @@
-= ruby-thumbor {<img src="https://secure.travis-ci.org/thumbor/ruby-thumbor.png?branch=master" alt="Build Status" />}[http://travis-ci.org/thumbor/ruby-thumbor] {<img src="https://badge.fury.io/rb/ruby-thumbor.svg" alt="Gem Version" />}[http://badge.fury.io/rb/ruby-thumbor] {<img src="https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/thumbor/ruby-thumbor?branch=master] {<img src="https://circleci.com/gh/thumbor/ruby-thumbor.svg?style=svg" alt="CircleCI" />}[https://circleci.com/gh/thumbor/ruby-thumbor]
+= ruby-thumbor {<img src="https://github.com/thumbor/ruby-thumbor/actions/workflows/main.yml/badge.svg" alt="Build Status" />}[https://github.com/thumbor/ruby-thumbor/actions] {<img src="https://badge.fury.io/rb/ruby-thumbor.svg" alt="Gem Version" />}[http://badge.fury.io/rb/ruby-thumbor] {<img src="https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github" alt="Coverage Status" />}[https://coveralls.io/github/thumbor/ruby-thumbor?branch=master]
 
 
 * http://github.com/thumbor/ruby-thumbor
