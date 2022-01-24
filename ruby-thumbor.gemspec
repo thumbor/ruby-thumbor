@@ -15,9 +15,5 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/thumbor/ruby-thumbor'
   s.rdoc_options = ['--main', 'README.rdoc']
   s.summary = 'ruby-thumbor is the client to the thumbor imaging service (http://github.com/thumbor/thumbor).'
-
-  s.add_development_dependency('rspec')
-  s.add_development_dependency('simplecov')
   s.add_development_dependency('rake')
-  s.add_development_dependency('rspec_junit_formatter')
 end
