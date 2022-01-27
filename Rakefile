@@ -1,3 +1,5 @@
-Dir.glob('tasks/*.rake').each { |r| import r}
+# frozen_string_literal: true
 
-task :default => :spec
+Dir.glob('tasks/*.rake').each { |r| import r }
+
+task default: :spec

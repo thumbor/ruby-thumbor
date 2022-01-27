@@ -1,0 +1,14 @@
+Naming/FileName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 130
+
+Layout/LineLength:
+  Max: 161
+
+Metrics/BlockLength:
+  Max: 255
