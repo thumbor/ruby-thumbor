@@ -7,14 +7,8 @@ require 'cgi'
 
 module Thumbor
   class CryptoURL
-    attr_writer :computed_key
-
     def initialize(key = nil)
       @key = key
-    end
-
-    def computed_key
-      (@key * 16)[0..15]
     end
 
     def calculate_width_and_height(url_parts, options)

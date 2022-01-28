@@ -10,12 +10,6 @@ describe Thumbor::Cascade do
 
   subject { Thumbor::Cascade.new key, image_url }
 
-  describe '#new' do
-    it 'should create a new instance passing key and keep it' do
-      expect(subject.computed_key).to eq 'my-security-keym'
-    end
-  end
-
   it 'should raise an error' do
     expect { subject.god_of_war_crop }.to raise_error(NoMethodError)
   end

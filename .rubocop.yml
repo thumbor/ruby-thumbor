@@ -4,6 +4,9 @@ Naming/FileName:
 Style/Documentation:
   Enabled: false
 
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Metrics/ClassLength:
   Max: 130
 
@@ -12,3 +15,15 @@ Layout/LineLength:
 
 Metrics/BlockLength:
   Max: 255
+
+Metrics/AbcSize:
+  Max: 74
+
+Metrics/CyclomaticComplexity:
+  Max: 26
+
+Metrics/MethodLength:
+  Max: 44
+
+Metrics/PerceivedComplexity:
+  Max: 26
