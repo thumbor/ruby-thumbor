@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-require 'thumbor/version'
+# frozen_string_literal: true
+
+require_relative 'lib/thumbor/version'
 
 Gem::Specification.new do |s|
   s.name = 'ruby-thumbor'
@@ -9,11 +8,35 @@ Gem::Specification.new do |s|
 
   s.authors = ['Bernardo Heynemann', 'Guilherme Souza']
   s.description = 'ruby-thumbor is the client to the thumbor imaging service (http://github.com/thumbor/thumbor).'
-  s.email = ['heynemann@gmail.com', 'guivideojob@gmail.com']
-  s.files = Dir.glob('lib/**/*.rb') << 'README.rdoc'
+  s.email = ['heynemann@gmail.com', 'guilherme@souza.tech']
+  s.license = 'MIT'
+
+  s.files = Dir.glob('lib/**/*.rb')
   s.test_files = Dir.glob('spec/**/*.rb')
+
   s.homepage = 'http://github.com/thumbor/ruby-thumbor'
-  s.rdoc_options = ['--main', 'README.rdoc']
+
+  s.extra_rdoc_files = Dir['README.md']
+  s.rdoc_options += [
+    '--title', 'Ruby-Thumbor',
+    '--main', 'README.md',
+    '--line-numbers',
+    '--inline-source',
+    '--quiet'
+  ]
+
   s.summary = 'ruby-thumbor is the client to the thumbor imaging service (http://github.com/thumbor/thumbor).'
-  s.add_development_dependency('rake')
+
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/thumbor/ruby-thumbor/issues',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/ruby-thumbor',
+    'homepage_uri' => s.homepage,
+    'source_code_uri' => 'https://github.com/thumbor/ruby-thumbor'
+  }
+
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'rspec', '~> 3.10'
+  s.add_development_dependency 'rubocop-rspec', '~> 2.8.0'
+  s.add_development_dependency 'simplecov', '~> 0.21.2'
+  s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 end
