@@ -2,8 +2,8 @@ name: Ruby
 
 on:
   push:
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+    branches:
+      - master
 
 jobs:
   release:
@@ -16,6 +16,10 @@ jobs:
           ruby-version: 3.1
       - name: Install dependencies
         run: bundle install
+      - name: Configure Git
+        run: |
+          git config user.email "101073+guilhermef@users.noreply.github.com"
+          git config user.name "GH actions"
       - name: push to RubyGems
         env:
           GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
