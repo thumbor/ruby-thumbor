@@ -1,27 +1,35 @@
-name: Ruby
+name: Release to Rubygems
 
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: ["Run tests"]
+    branches: [master]
+    types:
+      - completed
 
 jobs:
   release:
     name: release
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'Bump to')"
+    if: ${{ contains(github.event.workflow_run.head_commit.message, 'Bump to') && (github.event.workflow_run.conclusion == 'success') }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-      - name: Install dependencies
-        run: bundle install
-      - name: Configure Git
+      - name: debug
         run: |
-          git config user.email "101073+guilhermef@users.noreply.github.com"
-          git config user.name "GH actions"
-      - name: push to RubyGems
-        env:
-          GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
-        run: bundle exec rake release
+          echo "${{ contains(github.event.workflow_run.head_commit.message, 'Bump to') }}"
+          echo "${{ github.event.workflow_run.conclusion == 'success' }}"
+          echo "${{ contains(github.event.workflow_run.head_commit.message, 'Bump to') && (github.event.workflow_run.conclusion == 'success') }}"
+          echo "${{toJSON(github.event)}}"
+      # - uses: actions/checkout@v2
+      # - uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: 3.1
+      # - name: Install dependencies
+      #   run: bundle install
+      # - name: Configure Git
+      #   run: |
+      #     git config user.email "101073+guilhermef@users.noreply.github.com"
+      #     git config user.name "GH actions"
+      # - name: push to RubyGems
+      #   env:
+      #     GEM_HOST_API_KEY: ${{ secrets.GEM_HOST_API_KEY }}
+      #   run: bundle exec rake release
