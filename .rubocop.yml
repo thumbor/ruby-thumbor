@@ -27,3 +27,7 @@ Metrics/MethodLength:
 
 Metrics/PerceivedComplexity:
   Max: 26
+
+require:
+ - rubocop-rspec
+ - code_scanning

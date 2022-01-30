@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
     'source_code_uri' => 'https://github.com/thumbor/ruby-thumbor'
   }
 
+  s.add_development_dependency 'code-scanning-rubocop', '~> 0.5.0'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rspec', '~> 3.10'
   s.add_development_dependency 'rubocop-rspec', '~> 2.8.0'
