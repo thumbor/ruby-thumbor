@@ -1,4 +1,8 @@
-# ruby-thumbor [![Github Actions](https://github.com/thumbor/ruby-thumbor/actions/workflows/main.yml/badge.svg)](https://github.com/thumbor/ruby-thumbor/actions) [![Gem Version](https://badge.fury.io/rb/ruby-thumbor.svg)](https://rubygems.org/gems/ruby-thumbor) [![Coverage Status](https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github)](https://coveralls.io/github/thumbor/ruby-thumbor?branch=master)
+# ruby-thumbor
+[![Github Actions - tests](https://github.com/thumbor/ruby-thumbor/actions/workflows/test.yml/badge.svg)](https://github.com/thumbor/ruby-thumbor/actions)
+[![Github Actions - rubocop](https://github.com/thumbor/ruby-thumbor/actions/workflows/rubocop-analysis.yml/badge.svg)](https://github.com/thumbor/ruby-thumbor/actions)
+[![Gem Version](https://badge.fury.io/rb/ruby-thumbor.svg)](https://rubygems.org/gems/ruby-thumbor)
+[![Coverage Status](https://coveralls.io/repos/thumbor/ruby-thumbor/badge.svg?branch=master&service=github)](https://coveralls.io/github/thumbor/ruby-thumbor?branch=master)
 
 ruby-thumbor is the Ruby client to the thumbor imaging service (http://github.com/thumbor/thumbor).
 
