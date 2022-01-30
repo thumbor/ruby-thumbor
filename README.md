@@ -58,6 +58,10 @@ filters: ['blur(20)', 'watermark(http://my.site.com/img.png,-10,-10,50)'] # arra
 
 If you need more info on what each option does, check thumbor's documentation at https://thumbor.readthedocs.io/en/latest/index.html.
 
+## Uploading to Rubygems
+To upload a new version to Rubygems, simply update the version on the file `lib/thumbor/version.rb` then use the commit message `Bump to <new version>`, this will trigger the release process on Github actions.
+
+
 ## License
 (The MIT License)
 
